@@ -54,20 +54,13 @@ void SimpleMatrixCalculations::printMatrix(Matrix *print)
 }
 
 
-bool SimpleMatrixCalculations::verificateMatrix(Matrix *)		//Men hvad indebærer det?
-{
-
-	return false;
-}
-
-
 void SimpleMatrixCalculations::fillMatrix(Matrix *fill)
 {
 	for (size_t i = 0; i < fill->rows; i++)
 	{
 		for (size_t j = 0; j < fill->columns; j++)
 		{
-			cout << "Row: " << i+1 << " - Column: " << j+1 << " - Value: " << endl;
+			cout << endl << "Row: " << i+1 << " - Column: " << j+1 << " - Value: ";
 			cin >> fill->matrix[j][i];
 		}
 	}
@@ -229,7 +222,7 @@ double SimpleMatrixCalculations::determinant(Matrix *orginalMatrix)
 		cout << "determinant" << endl;
 
 	if (orginalMatrix->columns != orginalMatrix->rows)
-		return NULL;
+		return 0;
 
 	//Init result matrix
 	deconstructMatrix(&resultMatrix);
@@ -238,7 +231,7 @@ double SimpleMatrixCalculations::determinant(Matrix *orginalMatrix)
 	constructMatrix(&resultMatrix);
 
 	//Make it easier to calculate
-	flipMatrix(orginalMatrix);
+	flipMatrix(orginalMatrix);			//The flip doesn't need to be here, but if it's not, the result need to be inverted. 1 = -1 & -1 = 1
 
 	//Allocade memory to keep track of excluded columns
 	int *exclude = new int[orginalMatrix->columns-2];

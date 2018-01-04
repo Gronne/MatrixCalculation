@@ -12,7 +12,6 @@ public:
 
 	void printMatrix(Matrix*);
 	void fillMatrix(Matrix*);
-	bool verificateMatrix(Matrix*);				//Hvad ønsker jeg med denne funktion?
 
 	Matrix plus(Matrix*, Matrix*);
 	Matrix minus(Matrix*, Matrix*);
@@ -37,7 +36,6 @@ private:
 
 	//------variables--------
 	bool _intermediateCalculation = 0;				//can also be used for debugging
-	bool flag = 0;
 		
 
 };

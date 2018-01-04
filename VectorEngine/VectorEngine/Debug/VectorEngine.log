@@ -1,3 +1,11 @@
-﻿  Source.cpp
-  VectorEngine.vcxproj -> C:\Users\mathi\Documents\Visual Studio 2015\Projects\Machine Learning\Cheat\VectorEngine\Debug\VectorEngine.exe
-  VectorEngine.vcxproj -> C:\Users\mathi\Documents\Visual Studio 2015\Projects\Machine Learning\Cheat\VectorEngine\Debug\VectorEngine.pdb (Full PDB)
+﻿  matrixReff.cpp
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(81): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(114): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(116): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  Source.cpp
+  Generating Code...
+  VectorEngine.vcxproj -> C:\Users\mathi\Documents\GitHub\MatrixCalculation\VectorEngine\Debug\VectorEngine.exe
+  VectorEngine.vcxproj -> C:\Users\mathi\Documents\GitHub\MatrixCalculation\VectorEngine\Debug\VectorEngine.pdb (Full PDB)

@@ -1,13 +1,15 @@
 #include "SimpleMatrixCalculations.h"
+#include "matrixReff.h"
 
 
 int main()
 {
 	SimpleMatrixCalculations calc;
+	matrixReff rref;
 
 	Matrix m1;
-	m1.rows = 4;
-	m1.columns = 4;
+	m1.rows = 3;
+	m1.columns = 3;
 
 	Matrix m2;
 	m2.rows = 4;
@@ -20,10 +22,8 @@ int main()
 	//calc.fillMatrix(&m2);
 
 	//--------------------------------------------
-	Matrix mulMatrix;
-	calc.printMatrix(&m1);
-
-	cout << calc.determinant(&m1) << endl;
+	calc.printMatrix(&rref.echelonReduction(&m1));
+	
 	
 	//--------------------------------------------
 
