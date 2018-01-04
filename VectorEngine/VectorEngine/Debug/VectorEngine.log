@@ -1,11 +1,18 @@
 ﻿  matrixReff.cpp
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(81): warning C4018: '<': signed/unsigned mismatch
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(83): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(114): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(116): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Compiling...
-  Source.cpp
-  Generating Code...
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(98): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(115): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(128): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(135): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(147): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(151): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(163): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(167): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(196): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(198): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(212): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(216): warning C4018: '<': signed/unsigned mismatch
   VectorEngine.vcxproj -> C:\Users\mathi\Documents\GitHub\MatrixCalculation\VectorEngine\Debug\VectorEngine.exe
   VectorEngine.vcxproj -> C:\Users\mathi\Documents\GitHub\MatrixCalculation\VectorEngine\Debug\VectorEngine.pdb (Full PDB)

@@ -22,6 +22,7 @@ private:
 	void doubleStair(void);
 	void initMatrix(Matrix*);			//Done
 
+	void switchRow(int, int);
 
 
 	//-------objects---------

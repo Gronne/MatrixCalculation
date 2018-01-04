@@ -22,7 +22,7 @@ int main()
 	//calc.fillMatrix(&m2);
 
 	//--------------------------------------------
-	calc.printMatrix(&rref.echelonReduction(&m1));
+	calc.printMatrix(&rref.rowReduction(&m1));
 	
 	
 	//--------------------------------------------

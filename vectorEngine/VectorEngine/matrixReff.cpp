@@ -93,6 +93,88 @@ void matrixReff::singleStair(void)
 	//Check the number of rows that neew to be calculates.
 	coreSize = (resultMatrix.columns > resultMatrix.rows ? resultMatrix.rows : resultMatrix.columns);
 
+	double *timeBuffer = new double[coreSize];
+
+	for (size_t j = 0; j < coreSize-1; j++)
+	{
+		for (size_t i = j; i < coreSize; i++)		//Switch lanes
+		{
+			if (resultMatrix.matrix[j][i])
+			{
+				switchRow(i, j);
+				break;
+			}
+		}
+
+		if (!_intermediateCalculation)
+		{
+			calc.printMatrix(&resultMatrix); cout << endl;
+		}
+
+		double times = 1;
+		for (size_t i = j; i < coreSize; i++)		//Find timer
+		{
+			if (resultMatrix.matrix[j][i])
+			{
+				times *= resultMatrix.matrix[j][i];
+			}
+		}
+
+		if (!_intermediateCalculation)
+		{
+			calc.printMatrix(&resultMatrix); cout << endl;
+		}
+
+		for (size_t i = j; i < coreSize; i++)		//scale
+		{
+			double scale = (resultMatrix.matrix[j][i] == 0 ? 1 : times / resultMatrix.matrix[j][i]);
+			timeBuffer[i - j] = scale;				//Used to minimize later on
+
+			if (resultMatrix.matrix[j][i])
+			{
+				for (size_t n = 0; n < resultMatrix.columns; n++)
+				{
+					resultMatrix.matrix[n][i] *= scale;
+				}
+			}
+		}
+
+		if (!_intermediateCalculation)
+		{
+			calc.printMatrix(&resultMatrix); cout << endl;
+		}
+
+		for (size_t i = j+1; i < coreSize; i++)		//Minus
+		{
+			if (resultMatrix.matrix[j][i])
+			{
+				for (size_t n = 0; n < resultMatrix.columns; n++)
+				{
+					resultMatrix.matrix[n][i] -= resultMatrix.matrix[n][j];
+				}
+			}
+		}
+
+		if (!_intermediateCalculation)
+		{
+			calc.printMatrix(&resultMatrix); cout << endl;
+		}
+
+		for (size_t i = j; i < coreSize; i++)		//Minimize
+		{
+			if (resultMatrix.matrix[j+1][i])
+			{
+				for (size_t n = 0; n < resultMatrix.columns; n++)		
+				{
+					resultMatrix.matrix[n][i] /= timeBuffer[i - j];
+					
+				}
+			}
+		}
+				//5*n*n
+	}
+
+	delete[] timeBuffer;
 }
 
 void matrixReff::doubleStair(void)
@@ -118,4 +200,24 @@ void matrixReff::initMatrix(Matrix *orginalMatrix)
 			resultMatrix.matrix[i][j] = orginalMatrix->matrix[i][j];
 		}
 	}
+}
+
+void matrixReff::switchRow(int firstRow, int SecondRow)
+{
+	Matrix buffer; 
+	buffer.columns = resultMatrix.columns; 
+	buffer.rows = 1;
+	calc.constructMatrix(&buffer);
+
+	for (size_t i = 0; i < resultMatrix.columns; i++)	//Load buffer
+	{
+		buffer.matrix[i][0] = resultMatrix.matrix[i][firstRow];
+	}
+	for (size_t i = 0; i < resultMatrix.columns; i++)	//switch row
+	{
+		resultMatrix.matrix[i][firstRow] = resultMatrix.matrix[i][SecondRow];
+		resultMatrix.matrix[i][SecondRow] = buffer.matrix[i][0];
+	}
+
+	//calc.deconstructMatrix(&buffer);
 }
