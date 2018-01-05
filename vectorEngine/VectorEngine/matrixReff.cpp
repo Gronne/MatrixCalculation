@@ -17,7 +17,7 @@ matrixReff::matrixReff(bool intermediateCalculation) : calc(intermediateCalculat
 
 matrixReff::~matrixReff()
 {
-	//calc.deconstructMatrix(&resultMatrix);
+	calc.deconstructMatrix(&resultMatrix);
 }
 
 
@@ -55,6 +55,9 @@ Matrix matrixReff::echelonReduction(Matrix *orginalMatrix)
 
 Matrix matrixReff::invert(Matrix *orginalMatrix)
 {
+	if (_intermediateCalculation)
+		cout << "Invert" << endl;
+
 
 
 	return resultMatrix;
@@ -93,8 +96,19 @@ void matrixReff::singleStair(void)
 	//Check the number of rows that neew to be calculates.
 	coreSize = (resultMatrix.columns > resultMatrix.rows ? resultMatrix.rows : resultMatrix.columns);
 
+	//Create memory for the minimizing function
 	double *timeBuffer = new double[coreSize];
 
+	//Set rows under coreSize to zero
+	for (size_t i = coreSize; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < resultMatrix.columns; j++)
+		{
+			resultMatrix.matrix[j][i] = 0;
+		}
+	}
+
+	//Find argumented matrix
 	for (size_t j = 0; j < coreSize-1; j++)
 	{
 		for (size_t i = j; i < coreSize; i++)		//Switch lanes
@@ -109,6 +123,7 @@ void matrixReff::singleStair(void)
 		if (_intermediateCalculation)
 		{
 			calc.printMatrix(&resultMatrix); cout << endl;
+			cout << "Find timer" << endl;
 		}
 
 		double times = 1;
@@ -123,6 +138,7 @@ void matrixReff::singleStair(void)
 		if (_intermediateCalculation)
 		{
 			calc.printMatrix(&resultMatrix); cout << endl;
+			cout << "Scale" << endl;
 		}
 
 		for (size_t i = j; i < coreSize; i++)		//scale
@@ -142,6 +158,7 @@ void matrixReff::singleStair(void)
 		if (_intermediateCalculation)
 		{
 			calc.printMatrix(&resultMatrix); cout << endl;
+			cout << "Minus" << endl;
 		}
 
 		for (size_t i = j+1; i < coreSize; i++)		//Minus
@@ -158,6 +175,7 @@ void matrixReff::singleStair(void)
 		if (_intermediateCalculation)
 		{
 			calc.printMatrix(&resultMatrix); cout << endl;
+			cout << "Minimize" << endl;
 		}
 
 		for (size_t i = j; i < coreSize; i++)		//Minimize
@@ -242,6 +260,9 @@ void matrixReff::initMatrix(Matrix *orginalMatrix)
 
 void matrixReff::switchRow(int firstRow, int SecondRow)
 {
+	if (_intermediateCalculation)
+		cout << "switch row " << firstRow << " & " << SecondRow << endl;
+
 	Matrix buffer; 
 	buffer.columns = resultMatrix.columns; 
 	buffer.rows = 1;
@@ -257,12 +278,16 @@ void matrixReff::switchRow(int firstRow, int SecondRow)
 		resultMatrix.matrix[i][SecondRow] = buffer.matrix[i][0];
 	}
 
-	//calc.deconstructMatrix(&buffer);
+	calc.deconstructMatrix(&buffer);
 }
 
 
 double matrixReff::findTimer(int column)
 {
+	if (_intermediateCalculation)
+		cout << "Find timer" << endl;
+
+
 	double times = 1;
 
 	for (size_t j = 0; j < coreSize; j++)		//Find timer
@@ -278,6 +303,8 @@ double matrixReff::findTimer(int column)
 
 void matrixReff::scaleRows(double times, int column)
 {
+	if (_intermediateCalculation)
+		cout << "Scale rows x" << times << endl;
 
 	for (size_t i = 0; i < coreSize; i++)		//scale
 	{
@@ -297,6 +324,9 @@ void matrixReff::scaleRows(double times, int column)
 
 void matrixReff::minusRows(int row)
 {
+	if (_intermediateCalculation)
+		cout << "Minus rows" << endl;
+
 	for (size_t i = row-1; i >= 0 && i < row; i--)
 	{
 		for (size_t n = row; n < resultMatrix.columns; n++)
@@ -310,12 +340,15 @@ void matrixReff::minusRows(int row)
 
 void matrixReff::cleanMatrix(void)
 {
-	for (size_t i = 0; i < resultMatrix.rows; i++)	//clean
+	if (_intermediateCalculation)
+		cout << "Clean" << endl;
+
+	for (size_t i = 0; i < coreSize; i++)	//clean
 	{
 		for (size_t j = 0; j < resultMatrix.columns; j++)
 		{
-			if (resultMatrix.matrix[i][j] > -0.0001 && resultMatrix.matrix[i][j] < 0.0001)
-				resultMatrix.matrix[i][j] = 0;
+			if (resultMatrix.matrix[j][i] > -0.0001 && resultMatrix.matrix[j][i] < 0.0001)
+				resultMatrix.matrix[j][i] = 0;
 		}
 	}
 }
