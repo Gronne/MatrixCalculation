@@ -13,16 +13,20 @@ public:
 	Matrix echelonReduction(Matrix*);	//Done
 	Matrix invert(Matrix*);
 
-	double* result(void);	//Array of int - both in a independend matrix and a dependent matrix
+	double* result(void);				//Array of int - both in a independend matrix and a dependent matrix
 
 	void copyMatrix(Matrix*);			//Done
 
 private:
-	void singleStair(void);
-	void doubleStair(void);
+	void singleStair(void);				//Done	- optimize the minimizer - add so every row under coreSize is set to 0.
+	void doubleStair(void);				//Done
 	void initMatrix(Matrix*);			//Done
 
-	void switchRow(int, int);
+	void switchRow(int, int);			//Done
+	double findTimer(int);				//Done
+	void scaleRows(double, int);		//Done
+	void minusRows(int);				//Done
+	void cleanMatrix(void);				//Done
 
 
 	//-------objects---------

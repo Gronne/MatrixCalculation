@@ -17,7 +17,7 @@ matrixReff::matrixReff(bool intermediateCalculation) : calc(intermediateCalculat
 
 matrixReff::~matrixReff()
 {
-	calc.deconstructMatrix(&resultMatrix);
+	//calc.deconstructMatrix(&resultMatrix);
 }
 
 
@@ -43,7 +43,7 @@ Matrix matrixReff::echelonReduction(Matrix *orginalMatrix)
 	initMatrix(orginalMatrix);
 
 	if (_intermediateCalculation)
-		cout << "Echelon reduction";
+		cout << "Echelon reduction" << endl;
 
 	singleStair();
 	doubleStair();
@@ -106,7 +106,7 @@ void matrixReff::singleStair(void)
 			}
 		}
 
-		if (!_intermediateCalculation)
+		if (_intermediateCalculation)
 		{
 			calc.printMatrix(&resultMatrix); cout << endl;
 		}
@@ -120,7 +120,7 @@ void matrixReff::singleStair(void)
 			}
 		}
 
-		if (!_intermediateCalculation)
+		if (_intermediateCalculation)
 		{
 			calc.printMatrix(&resultMatrix); cout << endl;
 		}
@@ -139,7 +139,7 @@ void matrixReff::singleStair(void)
 			}
 		}
 
-		if (!_intermediateCalculation)
+		if (_intermediateCalculation)
 		{
 			calc.printMatrix(&resultMatrix); cout << endl;
 		}
@@ -155,7 +155,7 @@ void matrixReff::singleStair(void)
 			}
 		}
 
-		if (!_intermediateCalculation)
+		if (_intermediateCalculation)
 		{
 			calc.printMatrix(&resultMatrix); cout << endl;
 		}
@@ -171,16 +171,53 @@ void matrixReff::singleStair(void)
 				}
 			}
 		}
-				//5*n*n
+		
+		if (_intermediateCalculation)
+		{
+			calc.printMatrix(&resultMatrix); cout << endl;
+		}
 	}
+
+	cleanMatrix();
 
 	delete[] timeBuffer;
 }
 
+
 void matrixReff::doubleStair(void)
 {
+	for (size_t i = coreSize - 1; i > 0; i--)	//0's obove the stair
+	{
+		double times = findTimer(i);
 
+		scaleRows(times, i);
+		if (_intermediateCalculation)
+		{
+			calc.printMatrix(&resultMatrix);
+			cout << endl;
+		}
 
+		minusRows(i);
+		if (_intermediateCalculation)
+		{
+			calc.printMatrix(&resultMatrix);
+			cout << endl;
+		}
+
+		//Minimize?
+	}
+
+	cleanMatrix();
+
+	for (size_t i = 0; i < coreSize; i++)		//minimize
+	{
+		double reduction = (resultMatrix.matrix[i][i] != 0) ? (1 / resultMatrix.matrix[i][i]) : 1;
+		
+		for (size_t n = 0; n < resultMatrix.columns; n++)
+		{
+			resultMatrix.matrix[n][i] *= reduction;
+		}
+	}
 }
 
 
@@ -191,16 +228,17 @@ void matrixReff::initMatrix(Matrix *orginalMatrix)
 	resultMatrix.columns = orginalMatrix->columns;
 	resultMatrix.rows = orginalMatrix->rows;
 	calc.constructMatrix(&resultMatrix);
-	
+
 	//Fill it
 	for (size_t i = 0; i < resultMatrix.rows; i++)
 	{
 		for (size_t j = 0; j < resultMatrix.columns; j++)
 		{
-			resultMatrix.matrix[i][j] = orginalMatrix->matrix[i][j];
+			resultMatrix.matrix[j][i] = orginalMatrix->matrix[j][i];
 		}
 	}
 }
+
 
 void matrixReff::switchRow(int firstRow, int SecondRow)
 {
@@ -220,4 +258,64 @@ void matrixReff::switchRow(int firstRow, int SecondRow)
 	}
 
 	//calc.deconstructMatrix(&buffer);
+}
+
+
+double matrixReff::findTimer(int column)
+{
+	double times = 1;
+
+	for (size_t j = 0; j < coreSize; j++)		//Find timer
+	{
+		if (resultMatrix.matrix[column][j])
+		{
+			times *= resultMatrix.matrix[column][j];
+		}
+	}
+	return times;
+}
+
+
+void matrixReff::scaleRows(double times, int column)
+{
+
+	for (size_t i = 0; i < coreSize; i++)		//scale
+	{
+		double scale = (resultMatrix.matrix[column][i] == 0 ? 1 : times / resultMatrix.matrix[column][i]);
+
+		if (resultMatrix.matrix[column][i])
+		{
+			for (size_t n = 0; n < resultMatrix.columns; n++)
+			{
+				resultMatrix.matrix[n][i] *= scale;
+			}
+		}
+	}
+
+}
+
+
+void matrixReff::minusRows(int row)
+{
+	for (size_t i = row-1; i >= 0 && i < row; i--)
+	{
+		for (size_t n = row; n < resultMatrix.columns; n++)
+		{
+			resultMatrix.matrix[n][i] -= resultMatrix.matrix[n][row];
+		}
+	}
+
+}
+
+
+void matrixReff::cleanMatrix(void)
+{
+	for (size_t i = 0; i < resultMatrix.rows; i++)	//clean
+	{
+		for (size_t j = 0; j < resultMatrix.columns; j++)
+		{
+			if (resultMatrix.matrix[i][j] > -0.0001 && resultMatrix.matrix[i][j] < 0.0001)
+				resultMatrix.matrix[i][j] = 0;
+		}
+	}
 }
