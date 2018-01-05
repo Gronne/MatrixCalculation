@@ -58,7 +58,48 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 	if (_intermediateCalculation)
 		cout << "Invert" << endl;
 
+	//Validate matrix
+	if (orginalMatrix->columns != orginalMatrix->rows)
+		return *orginalMatrix;
 
+	//Init and copy matrix
+	initMatrix(orginalMatrix);
+
+	//Init det-values
+	double detFirst, detSecond, detThird, detFourth;
+
+	//go to every object and find the det
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < resultMatrix.columns; j++)		//Use the orginial
+		{
+			//The first number
+			detFirst = (j + 1 < resultMatrix.columns) ? (i + 1 < resultMatrix.columns ? orginalMatrix->matrix[j + 1][i + 1] : orginalMatrix->matrix[j + 1][0 + ((i + 1) - (resultMatrix.rows))]) : (i + 1 < resultMatrix.columns ? orginalMatrix->matrix[0 + ((j + 1) - (resultMatrix.rows))][i + 1] : orginalMatrix->matrix[0 + ((j + 1) - (resultMatrix.rows))][0 + ((i + 1) - (resultMatrix.rows))]);
+
+			//The second number
+			detSecond = (j + 2 < resultMatrix.columns) ? (i + 1 < resultMatrix.columns ? orginalMatrix->matrix[j + 2][i + 1] : orginalMatrix->matrix[j + 2][0 + ((i + 1) - (resultMatrix.rows))]) : (i + 1 < resultMatrix.columns ? orginalMatrix->matrix[0 + ((j + 2) - (resultMatrix.rows))][i + 1] : orginalMatrix->matrix[0 + ((j + 2) - (resultMatrix.rows))][0 + ((i + 1) - (resultMatrix.rows))]);
+
+			//The third number
+			detThird = (j + 1 < resultMatrix.columns) ? (i + 2 < resultMatrix.columns ? orginalMatrix->matrix[j + 1][i + 2] : orginalMatrix->matrix[j + 1][0 + ((i + 2) - (resultMatrix.rows))]) : (i + 2 < resultMatrix.columns ? orginalMatrix->matrix[0 + ((j + 1) - (resultMatrix.rows))][i + 2] : orginalMatrix->matrix[0 + ((j + 1) - (resultMatrix.rows))][0 + ((i + 2) - (resultMatrix.rows))]);
+
+			//The fourth number
+			detFourth = (j + 2 < resultMatrix.columns) ? (i + 2 < resultMatrix.columns ? orginalMatrix->matrix[j + 2][i + 2] : orginalMatrix->matrix[j + 2][0 + ((i + 2) - (resultMatrix.rows))]) : (i + 2 < resultMatrix.columns ? orginalMatrix->matrix[0 + ((j + 2) - (resultMatrix.rows))][i + 2] : orginalMatrix->matrix[0 + ((j + 2) - (resultMatrix.rows))][0 + ((i + 2) - (resultMatrix.rows))]);
+
+			//Find the determinant
+			//if(((i + j + 1) % 2) == 1)
+			//	resultMatrix.matrix[j][i] = detFirst * detFourth - detSecond * detThird;
+			//else
+				resultMatrix.matrix[j][i] = -(detFirst * detFourth - detSecond * detThird);
+		}
+	}
+
+	if (_intermediateCalculation == 1)
+		calc.printMatrix(&resultMatrix);
+
+	//Find the Identificaiton factorization
+
+
+	//Devide the resultMatrix with the factorization
 
 	return resultMatrix;
 }

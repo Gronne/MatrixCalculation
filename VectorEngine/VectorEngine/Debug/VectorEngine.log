@@ -1,3 +1,35 @@
-﻿  Source.cpp
+﻿  matrixReff.cpp
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(72): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(74): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(77): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(80): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(86): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(125): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(127): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(144): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(146): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(153): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(155): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(171): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(185): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(192): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(205): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(209): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(222): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(226): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(271): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(275): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(292): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(294): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(312): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(316): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(334): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(350): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(356): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(371): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(373): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(387): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(389): warning C4018: '<': signed/unsigned mismatch
   VectorEngine.vcxproj -> C:\Users\mathi\Documents\GitHub\MatrixCalculation\VectorEngine\Debug\VectorEngine.exe
   VectorEngine.vcxproj -> C:\Users\mathi\Documents\GitHub\MatrixCalculation\VectorEngine\Debug\VectorEngine.pdb (Full PDB)
