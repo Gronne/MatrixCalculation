@@ -18,7 +18,7 @@ int main()
 	//calc.fillMatrix(&m2);
 
 	//--------------------------------------------
-	calc.printMatrix(&rref.invert(&m1));
+	rref.invert(&m1);
 	
 	
 	//--------------------------------------------

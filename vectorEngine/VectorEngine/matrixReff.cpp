@@ -84,12 +84,11 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 
 			//The fourth number
 			detFourth = (j + 2 < resultMatrix.columns) ? (i + 2 < resultMatrix.columns ? orginalMatrix->matrix[j + 2][i + 2] : orginalMatrix->matrix[j + 2][0 + ((i + 2) - (resultMatrix.rows))]) : (i + 2 < resultMatrix.columns ? orginalMatrix->matrix[0 + ((j + 2) - (resultMatrix.rows))][i + 2] : orginalMatrix->matrix[0 + ((j + 2) - (resultMatrix.rows))][0 + ((i + 2) - (resultMatrix.rows))]);
-
-			//Find the determinant
-			//if(((i + j + 1) % 2) == 1)
-			//	resultMatrix.matrix[j][i] = detFirst * detFourth - detSecond * detThird;
-			//else
-				resultMatrix.matrix[j][i] = -(detFirst * detFourth - detSecond * detThird);
+			
+			//Find determinant
+			resultMatrix.matrix[j][i] = (detFirst * detFourth - detSecond * detThird);
+			if (_intermediateCalculation)
+				cout << "det = " << detFirst << " * " << detFourth << " - " << detSecond << " * " << detThird << " = " << resultMatrix.matrix[j][i] << endl;
 		}
 	}
 
@@ -97,9 +96,22 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 		calc.printMatrix(&resultMatrix);
 
 	//Find the Identificaiton factorization
+	calc.transpose(&resultMatrix);
+	calc.copyMatrix(&resultMatrix);
 
+	int factor = calc.multiplication(&resultMatrix, orginalMatrix).matrix[0][0];
 
 	//Devide the resultMatrix with the factorization
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < resultMatrix.columns; j++)
+		{
+			resultMatrix.matrix[j][i] /= factor;
+		}
+	}
+
+	if (_intermediateCalculation == 1)
+		calc.printMatrix(&resultMatrix);
 
 	return resultMatrix;
 }
