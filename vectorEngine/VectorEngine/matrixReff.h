@@ -11,7 +11,8 @@ public:
 
 	Matrix rowReduction(Matrix*);		//Done
 	Matrix echelonReduction(Matrix*);	//Done
-	Matrix invert(Matrix*);
+	Matrix adjugateInvert(Matrix*);		//Done - but only for 3x3 matrixes
+	Matrix invert(Matrix*);				//Done - but would be smart to do the upper an lower part, at the same time - and there is a buffer..
 
 	double* result(void);				//Array of int - both in a independend matrix and a dependent matrix
 

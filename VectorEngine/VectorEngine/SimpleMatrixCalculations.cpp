@@ -156,6 +156,9 @@ Matrix SimpleMatrixCalculations::multiplication(Matrix *firstMatrix, Matrix *sec
 		}
 	}
 
+	if (_intermediateCalculation == 1)
+		printMatrix(&resultMatrix);
+
 	//Return result 
 	return resultMatrix;
 }

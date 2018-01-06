@@ -53,10 +53,10 @@ Matrix matrixReff::echelonReduction(Matrix *orginalMatrix)
 }
 
 
-Matrix matrixReff::invert(Matrix *orginalMatrix)
+Matrix matrixReff::adjugateInvert(Matrix *orginalMatrix)
 {
 	if (_intermediateCalculation)
-		cout << "Invert" << endl;
+		cout << "Adjugate invert" << endl;
 
 	//Validate matrix
 	if (orginalMatrix->columns != orginalMatrix->rows)
@@ -115,6 +115,84 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 
 	return resultMatrix;
 }
+
+
+Matrix matrixReff::invert(Matrix *orginalMatrix)
+{
+	//Check if it can be inverted
+	if (orginalMatrix->columns != orginalMatrix->rows)
+		return *orginalMatrix;
+
+	//Init result matrix
+	calc.deconstructMatrix(&resultMatrix);
+	resultMatrix.columns = orginalMatrix->columns*2;
+	resultMatrix.rows = orginalMatrix->rows;
+	calc.constructMatrix(&resultMatrix);
+
+	//Fill in orginal matrix
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < resultMatrix.columns/2; j++)
+		{
+			resultMatrix.matrix[j][i] = orginalMatrix->matrix[j][i];
+		}
+	}
+
+	//Fill in identy matrix (I)
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = resultMatrix.columns/2; j < resultMatrix.columns; j++)
+		{
+			if((j - (resultMatrix.columns/2)) == i)
+				resultMatrix.matrix[j][i] = 1;
+			else
+				resultMatrix.matrix[j][i] = 0;
+		}
+	}
+
+	if (_intermediateCalculation)
+		cout << "Invert" << endl;
+
+
+	//Find the inverted matrix
+	singleStair();
+	doubleStair();
+
+	if (_intermediateCalculation)
+		calc.printMatrix(&resultMatrix);
+
+	//Substract the inverted part
+	Matrix buffer;
+	buffer.columns = orginalMatrix->columns;
+	buffer.rows = orginalMatrix->rows;
+	calc.constructMatrix(&buffer);
+
+	for (size_t i = 0; i < buffer.rows; i++)
+	{
+		for (size_t j = 0; j < buffer.columns; j++)
+		{
+			buffer.matrix[j][i] = resultMatrix.matrix[j + buffer.columns][i];
+		}
+	}
+
+	calc.deconstructMatrix(&resultMatrix);
+	resultMatrix.columns = orginalMatrix->columns;
+	resultMatrix.rows = orginalMatrix->rows;
+	calc.constructMatrix(&resultMatrix);
+
+	for (size_t i = 0; i < buffer.rows; i++)
+	{
+		for (size_t j = 0; j < buffer.columns; j++)
+		{
+			resultMatrix.matrix[j][i] = buffer.matrix[j][i];
+		}
+	}
+	
+
+	//Return the inverted matrix
+	return resultMatrix;
+}
+
 
 double * matrixReff::result(void)
 {

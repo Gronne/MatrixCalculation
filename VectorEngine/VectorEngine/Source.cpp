@@ -5,7 +5,7 @@
 int main()
 {
 	SimpleMatrixCalculations calc;
-	matrixReff rref(1);
+	matrixReff rref;
 
 	Matrix m1;
 	m1.rows = 3;
@@ -18,7 +18,7 @@ int main()
 	//calc.fillMatrix(&m2);
 
 	//--------------------------------------------
-	rref.invert(&m1);
+	calc.printMatrix(&rref.invert(&m1));
 	
 	
 	//--------------------------------------------
