@@ -25,6 +25,7 @@ Matrix matrixReff::rowReduction(Matrix *orginalMatrix)
 {
 	//Init result matrix
 	initMatrix(orginalMatrix);
+	_lastFunctionRun = 1;
 
 	if (_intermediateCalculation)
 		cout << "Row reduction" << endl;
@@ -41,6 +42,7 @@ Matrix matrixReff::echelonReduction(Matrix *orginalMatrix)
 {
 	//Init result matrix
 	initMatrix(orginalMatrix);
+	_lastFunctionRun = 2;
 
 	if (_intermediateCalculation)
 		cout << "Echelon reduction" << endl;
@@ -57,6 +59,8 @@ Matrix matrixReff::adjugateInvert(Matrix *orginalMatrix)
 {
 	if (_intermediateCalculation)
 		cout << "Adjugate invert" << endl;
+
+	_lastFunctionRun = 4;
 
 	//Validate matrix
 	if (orginalMatrix->columns != orginalMatrix->rows)
@@ -129,6 +133,8 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 	resultMatrix.rows = orginalMatrix->rows;
 	calc.constructMatrix(&resultMatrix);
 
+	_lastFunctionRun = 3;
+
 	//Fill in orginal matrix
 	for (size_t i = 0; i < resultMatrix.rows; i++)
 	{
@@ -195,6 +201,132 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 
 
 double * matrixReff::result(void)
+{
+	int answers = pivots();
+	double *results = new double[answers];
+
+	if (answers == resultMatrix.columns-1)
+	{
+		for (size_t i = 0; i < coreSize; i++)
+		{
+			results[i] = resultMatrix.matrix[resultMatrix.columns - 1][i];
+		}
+	}
+	else
+	{
+		//Check if there is 0 = 1, statements
+		for (size_t i = 0; i < resultMatrix.rows-answers; i++)
+		{
+			if (resultMatrix.matrix[resultMatrix.columns-1][i] != 0)
+			{
+				for (size_t i = 0; i < coreSize; i++)
+				{
+					results[i] = -1;
+				}
+			}
+		}
+
+		//Check for free variables - the problem?!?!
+
+
+	}
+
+
+	return results;
+}
+
+double * matrixReff::result(Matrix *orginalMatrix, bool stepOver)
+{
+	if (!stepOver)
+	{
+		//Reff the matrix
+		echelonReduction(orginalMatrix);
+	}
+	
+	//Find and return answer
+	return result();
+}
+
+double * matrixReff::result(Matrix *orginalA, Matrix *orginalB)
+{
+	double r = { -1 };
+
+	if (orginalA->rows == orginalB->rows)
+		return &r;
+
+	//Init result matrix
+	calc.deconstructMatrix(&resultMatrix);
+	resultMatrix.rows = orginalA->rows;
+	resultMatrix.columns = orginalA->columns + orginalB->columns;
+	calc.constructMatrix(&resultMatrix);
+
+	//Fill result matrix
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < orginalA->columns; j++)
+		{
+			resultMatrix.matrix[j][i] = orginalA->matrix[j][i];
+		}
+	}
+
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = orginalA->columns; j < resultMatrix.columns; j++)
+		{
+			resultMatrix.matrix[j][i] = orginalB->matrix[j-orginalA->columns][i];
+		}
+	}
+
+	//reff the matrix
+	singleStair();
+	doubleStair();
+
+	//Find aswer and return result
+	return result(&resultMatrix, 1);
+}
+
+int matrixReff::pivots(Matrix *orginalMatrix)
+{
+	initMatrix(orginalMatrix);
+
+	singleStair();
+
+	return pivots();
+}
+
+int matrixReff::pivots(void)
+{
+	if (_lastFunctionRun == 0 || _lastFunctionRun > 4)
+	{
+		//Can't finde the pivots
+		return -1;
+	}
+	if (_intermediateCalculation)
+		cout << "Find pivots" << endl;
+
+	int numberOfPivots = 0;
+	int rowCounter = 0;
+	
+	for (size_t j = 0; j < resultMatrix.columns && rowCounter < resultMatrix.rows; j++)
+	{
+		if (resultMatrix.matrix[j][rowCounter] != 0)
+		{
+			rowCounter++;
+			numberOfPivots++;
+			if (_intermediateCalculation)
+				cout << "Pivot at column: " << j << endl;
+		}
+	}
+
+	return numberOfPivots;
+}
+
+int * matrixReff::pivotRows(Matrix *)
+{
+	return nullptr;
+}
+
+int * matrixReff::pivotRows(void)
 {
 	return nullptr;
 }
@@ -460,9 +592,12 @@ void matrixReff::minusRows(int row)
 
 	for (size_t i = row-1; i >= 0 && i < row; i--)
 	{
-		for (size_t n = row; n < resultMatrix.columns; n++)
+		if (resultMatrix.matrix[row][i] != 0)
 		{
-			resultMatrix.matrix[n][i] -= resultMatrix.matrix[n][row];
+			for (size_t n = row; n < resultMatrix.columns; n++)
+			{
+				resultMatrix.matrix[n][i] -= resultMatrix.matrix[n][row];
+			}
 		}
 	}
 

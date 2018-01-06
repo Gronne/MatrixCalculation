@@ -23,8 +23,8 @@ SimpleMatrixCalculations::~SimpleMatrixCalculations()
 
 void SimpleMatrixCalculations::constructMatrix(Matrix *conMatrix)
 {
-	if (_intermediateCalculation == 1)
-		cout << "Construct matrix" << endl;
+	//if (_intermediateCalculation == 1)
+	//	cout << "Construct matrix" << endl;
 
 	conMatrix->matrix = new double*[conMatrix->columns];
 	for (int i = 0; i < conMatrix->columns; ++i)
@@ -34,8 +34,8 @@ void SimpleMatrixCalculations::constructMatrix(Matrix *conMatrix)
 
 void SimpleMatrixCalculations::deconstructMatrix(Matrix *deconMatrix)
 {
-	if (_intermediateCalculation == 1)
-		cout << "Deconstruct matrix" << endl; 
+	//if (_intermediateCalculation == 1)
+	//	cout << "Deconstruct matrix" << endl; 
 
 	for (size_t i = 0; i < deconMatrix->columns; i++)
 		delete[] deconMatrix->matrix[i];

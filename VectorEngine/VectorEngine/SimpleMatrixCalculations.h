@@ -10,7 +10,7 @@ public:
 	void constructMatrix(Matrix*);
 	void deconstructMatrix(Matrix*);
 
-	void printMatrix(Matrix*);
+	void printMatrix(Matrix*);			//Overload, so if not anything else have been specified, print resultmatrix
 	void fillMatrix(Matrix*);
 
 	Matrix plus(Matrix*, Matrix*);

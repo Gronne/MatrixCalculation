@@ -5,25 +5,45 @@
 int main()
 {
 	SimpleMatrixCalculations calc;
-	matrixReff rref;
+	matrixReff rref(false);
 
-	Matrix m1;
-	m1.rows = 3;
-	m1.columns = 3;
+	Matrix A;
+	A.rows = 3;
+	A.columns = 4;
+
+	Matrix B;
+	B.rows = 2;
+	B.columns = 2;
+
+	Matrix C;
+	C.rows = 2;
+	C.columns = 2;
 
 
-	calc.constructMatrix(&m1);
+	calc.constructMatrix(&A);
+	calc.constructMatrix(&B);
+	calc.constructMatrix(&C);
 
-	calc.fillMatrix(&m1);
-	//calc.fillMatrix(&m2);
+	calc.fillMatrix(&A);
+	//calc.fillMatrix(&B);
+	//calc.fillMatrix(&C);
+
 
 	//--------------------------------------------
-	calc.printMatrix(&rref.invert(&m1));
+	calc.printMatrix(&rref.echelonReduction(&A));
+	int pivot = rref.pivots();
+	double *results = rref.result();
+
+	cout << "Pivot: " << pivot << endl;
 	
-	
+	for (size_t i = 0; i < pivot; i++)
+		cout << (char)(65+i) << ": " << results[i] << endl;
+
 	//--------------------------------------------
 
-	calc.deconstructMatrix(&m1);
+	calc.deconstructMatrix(&A);
+	calc.deconstructMatrix(&B);
+	calc.deconstructMatrix(&C);
 	//calc.deconstructMatrix(&mulMatrix);
 	return 0;
 }
