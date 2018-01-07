@@ -8,7 +8,9 @@ public:
 	~SimpleMatrixCalculations();
 
 	void constructMatrix(Matrix*);
+	void constructMatrixResult(MatrixResult*);
 	void deconstructMatrix(Matrix*);
+	void deconstructMatrixResult(MatrixResult*);
 
 	void printMatrix(Matrix*);			//Overload, so if not anything else have been specified, print resultmatrix
 	void fillMatrix(Matrix*);

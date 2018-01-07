@@ -5,11 +5,11 @@
 int main()
 {
 	SimpleMatrixCalculations calc;
-	matrixReff rref(false);
+	matrixReff rref(true);
 
 	Matrix A;
-	A.rows = 3;
-	A.columns = 4;
+	A.rows = 2;
+	A.columns = 5;
 
 	Matrix B;
 	B.rows = 2;
@@ -30,14 +30,7 @@ int main()
 
 
 	//--------------------------------------------
-	calc.printMatrix(&rref.echelonReduction(&A));
-	int pivot = rref.pivots();
-	double *results = rref.result();
-
-	cout << "Pivot: " << pivot << endl;
-	
-	for (size_t i = 0; i < pivot; i++)
-		cout << (char)(65+i) << ": " << results[i] << endl;
+	rref.printResult(rref.result(&A));
 
 	//--------------------------------------------
 

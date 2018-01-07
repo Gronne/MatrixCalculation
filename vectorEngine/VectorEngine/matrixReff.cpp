@@ -10,14 +10,21 @@ matrixReff::matrixReff(bool intermediateCalculation) : calc(intermediateCalculat
 	//Construct a 1x1 matrix
 	resultMatrix.columns = 1;
 	resultMatrix.rows = 1;
-
 	calc.constructMatrix(&resultMatrix);
+
+	//Construct a base result
+	results.freeVariable = 0;
+	results.size = 0;
+	calc.constructMatrixResult(&results);
+
 }
 
 
 matrixReff::~matrixReff()
 {
+	//Deconstruc objects constructed in the constructor
 	calc.deconstructMatrix(&resultMatrix);
+	calc.deconstructMatrixResult(&results);
 }
 
 
@@ -200,59 +207,136 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 }
 
 
-double * matrixReff::result(void)
+MatrixResult * matrixReff::result(void)
 {
-	int answers = pivots();
-	double *results = new double[answers];
+	//Init MatrixResult
+	calc.deconstructMatrixResult(&results);
+	results.size = resultMatrix.columns - 1;
+	results.freeVariable = results.size - pivotPrivat();
 
-	if (answers == resultMatrix.columns-1)
+	//Checks if it's inhomogene					- genovervej denne del
+	if (results.freeVariable != 0)
 	{
 		for (size_t i = 0; i < coreSize; i++)
 		{
-			results[i] = resultMatrix.matrix[resultMatrix.columns - 1][i];
+			if (resultMatrix.matrix[resultMatrix.columns - 1][i] != 0)
+			{
+				results.freeVariable++;
+				calc.constructMatrixResult(&results);
+				results.freeVariable--;
+				break;
+			}
+			else if (i == coreSize-1)
+				calc.constructMatrixResult(&results);
 		}
 	}
 	else
 	{
-		//Check if there is 0 = 1, statements
-		for (size_t i = 0; i < resultMatrix.rows-answers; i++)
+		results.freeVariable++;
+		calc.constructMatrixResult(&results);
+		results.freeVariable--;
+	}
+	
+
+	//Find solution
+	if (results.freeVariable == 0)
+	{
+		int count = 0;
+		for (size_t i = 0; i < coreSize; i++)
 		{
-			if (resultMatrix.matrix[resultMatrix.columns-1][i] != 0)
+			results.result[0][i] = resultMatrix.matrix[resultMatrix.columns - 1][i];
+			if (results.result[0][i] == 0)
+				count++;
+		}
+		//Check what characteristic the solution have
+		results.type = (count == coreSize) ? "hcet" : "icet" ;
+	}
+	else
+	{
+		//Check if there is 0 = 1, statements
+		for (size_t i = coreSize-1; i < results.size-results.freeVariable; i--)
+		{
+			if (resultMatrix.matrix[resultMatrix.columns-1][i] != 0 && resultMatrix.matrix[resultMatrix.columns - 2][i] == 0)
 			{
+				//Kan ikke laves:
 				for (size_t i = 0; i < coreSize; i++)
 				{
-					results[i] = -1;
+					results.result[0][i] = -1;			//Fault value
 				}
+				results.type = "nd";
+				return &results;
 			}
+
 		}
 
-		//Check for free variables - the problem?!?!
+		//Check for free variables - in a consistent matrix - the hard part
+		int count = 0;
+		for (size_t i = 0; i < coreSize; i++)
+		{
+			results.result[0][i] = resultMatrix.matrix[resultMatrix.columns - 1][i];
+			if (results.result[0][i] == 0)
+				count++;
+		}
+
+		
+		for (size_t i = 0; i < results.freeVariable; i++)
+		{
+			for (size_t j = 0; j < results.freeVariable; j++)
+			{
+				results.result[j][i] = resultMatrix.matrix[resultMatrix.columns - 1 - results.freeVariable + j][i];
+			}
+		}
+		
+		if (count != coreSize)					//Inhomogen solution
+		{
+
+			for (size_t i = 0; i < results.freeVariable; i++)
+			{
+				results.result[results.freeVariable][i] = -resultMatrix.matrix[resultMatrix.columns - 1][i];
+			}
+			
+			results.type = "icu";	//Is it u or t?
+		}
+		else									//Homogen solution
+			results.type = "hct";
 
 
+		//Fill in the space without results in
+		for (size_t i = results.freeVariable; i < results.size; i++)
+		{
+			for (size_t j = 0; j < results.freeVariable; j++)
+			{
+				if(j == 0)
+					results.result[0][i] = 1;
+				else
+					results.result[0][i] = 0;
+			}
+		}
 	}
 
 
-	return results;
+	//Return result
+	return &results;
 }
 
-double * matrixReff::result(Matrix *orginalMatrix, bool stepOver)
+MatrixResult * matrixReff::result(Matrix *orginalMatrix)
 {
-	if (!stepOver)
-	{
-		//Reff the matrix
-		echelonReduction(orginalMatrix);
-	}
+	//Reff the matrix
+	echelonReduction(orginalMatrix);
 	
 	//Find and return answer
 	return result();
 }
 
-double * matrixReff::result(Matrix *orginalA, Matrix *orginalB)
+MatrixResult * matrixReff::result(Matrix *orginalA, Matrix *orginalB)
 {
-	double r = { -1 };
-
 	if (orginalA->rows == orginalB->rows)
-		return &r;
+	{
+		results.freeVariable = -1;
+		results.size = -1;
+		results.type = "n";
+		return &results;
+	}
 
 	//Init result matrix
 	calc.deconstructMatrix(&resultMatrix);
@@ -282,7 +366,7 @@ double * matrixReff::result(Matrix *orginalA, Matrix *orginalB)
 	doubleStair();
 
 	//Find aswer and return result
-	return result(&resultMatrix, 1);
+	return result();		//Kan man bare ikke kalde result() direkte?
 }
 
 int matrixReff::pivots(Matrix *orginalMatrix)
@@ -331,6 +415,16 @@ int * matrixReff::pivotRows(void)
 	return nullptr;
 }
 
+int * matrixReff::pivotColumns(Matrix *)
+{
+	return nullptr;
+}
+
+int * matrixReff::pivotColumns(void)
+{
+	return nullptr;
+}
+
 
 void matrixReff::copyMatrix(Matrix *newMatrix)
 {
@@ -351,6 +445,52 @@ void matrixReff::copyMatrix(Matrix *newMatrix)
 			newMatrix->matrix[i][j] = resultMatrix.matrix[i][j];
 		}
 	}
+}
+
+void matrixReff::printResult(MatrixResult *resultToPrint)
+{
+	cout << "Number of pivots: " << pivotPrivat() << endl;
+	cout << "Have the solution: " << endl;
+
+	if (resultToPrint->freeVariable == 0)
+	{
+		for (size_t i = 0; i < resultToPrint->size; i++)
+			cout << (char)(65+i) << ": " << resultToPrint->result[0][i] << endl;
+	}
+	else
+	{
+		if (results.type[0] == 'n')
+			cout << "There isn't a solution to the matrix :(" << endl;
+		else
+		{
+			for (size_t i = 0; i < resultToPrint->freeVariable; i++)
+			{
+				for (size_t j = 0; j < resultToPrint->freeVariable; j++)
+					cout << "+" << "x" << (resultToPrint->size - resultToPrint->freeVariable) + j + 1<< "*" << resultToPrint->result[j][i];
+
+				if (results.type[0] == 'i')
+					cout << resultToPrint->result[resultToPrint->freeVariable][i];
+
+				cout << endl;
+			}
+			for (size_t i = resultToPrint->freeVariable; i < resultToPrint->size; i++)
+			{
+				cout << "x" << (resultToPrint->size - resultToPrint->freeVariable*2) + i + 1 << endl;
+			}
+
+		}
+	}
+
+	cout << "And is: ";
+	for (size_t i = 0; i < resultToPrint->type.size(); i++)
+	{
+		for (size_t j = 0; j < typeSize; j++)
+		{
+			if (resultToPrint->type[i] == matrixTypes[j][1])
+				cout << matrixTypes[j] << ", ";
+		}
+	}
+	cout << endl;
 }
 
 
@@ -518,6 +658,30 @@ void matrixReff::initMatrix(Matrix *orginalMatrix)
 			resultMatrix.matrix[j][i] = orginalMatrix->matrix[j][i];
 		}
 	}
+}
+
+int matrixReff::pivotPrivat(void)
+{
+	int numberOfpivots = 0;
+
+	if (_intermediateCalculation)
+		cout << "Find pivots" << endl;
+
+	int numberOfPivots = 0;
+	int rowCounter = 0;
+
+	for (size_t j = 0; j < resultMatrix.columns-1 && rowCounter < resultMatrix.rows; j++)		//Så result ikke bliver talt med som en pivot
+	{
+		if (resultMatrix.matrix[j][rowCounter] != 0)
+		{
+			rowCounter++;
+			numberOfPivots++;
+			if (_intermediateCalculation)
+				cout << "Pivot at column: " << j << endl;
+		}
+	}
+
+	return numberOfPivots;
 }
 
 

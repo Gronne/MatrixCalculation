@@ -31,6 +31,14 @@ void SimpleMatrixCalculations::constructMatrix(Matrix *conMatrix)
 		conMatrix->matrix[i] = new double[conMatrix->rows];
 }
 
+void SimpleMatrixCalculations::constructMatrixResult(MatrixResult *conMatrixResult)
+{
+	int columns = (conMatrixResult->freeVariable == 0 ? 1 : conMatrixResult->freeVariable);
+	conMatrixResult->result = new double*[columns];
+	for (int i = 0; i < columns; ++i)
+		conMatrixResult->result[i] = new double[conMatrixResult->size];
+}
+
 
 void SimpleMatrixCalculations::deconstructMatrix(Matrix *deconMatrix)
 {
@@ -40,6 +48,15 @@ void SimpleMatrixCalculations::deconstructMatrix(Matrix *deconMatrix)
 	for (size_t i = 0; i < deconMatrix->columns; i++)
 		delete[] deconMatrix->matrix[i];
 	delete[] deconMatrix->matrix;
+}
+
+void SimpleMatrixCalculations::deconstructMatrixResult(MatrixResult *deconMatrixResult)
+{
+	int columns = (deconMatrixResult->freeVariable == 0 ? 1 : deconMatrixResult->freeVariable);
+
+	for (size_t i = 0; i < columns; i++)
+		delete[] deconMatrixResult->result[i];
+	delete[] deconMatrixResult->result;
 }
 
 
