@@ -8,8 +8,8 @@ int main()
 	matrixReff rref(true);
 
 	Matrix A;
-	A.rows = 2;
-	A.columns = 5;
+	A.rows = 4;
+	A.columns = 2;
 
 	Matrix B;
 	B.rows = 2;
@@ -30,7 +30,12 @@ int main()
 
 
 	//--------------------------------------------
-	rref.printResult(rref.result(&A));
+	calc.printMatrix(&rref.echelonReduction(&A));
+	int *rows = rref.pivotRows();
+	int *columns = rref.pivotColumns();
+
+	rref.printPivotRows(&A);
+	rref.printPivotColumns(&A);
 
 	//--------------------------------------------
 

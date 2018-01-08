@@ -60,7 +60,7 @@ void SimpleMatrixCalculations::deconstructMatrixResult(MatrixResult *deconMatrix
 }
 
 
-void SimpleMatrixCalculations::printMatrix(Matrix *print)
+void SimpleMatrixCalculations::printMatrix(const Matrix *print) const
 {
 	for (size_t i = 0; i < print->rows; i++)
 	{
@@ -84,7 +84,7 @@ void SimpleMatrixCalculations::fillMatrix(Matrix *fill)
 }
 
 
-Matrix SimpleMatrixCalculations::plus(Matrix *firstMatrix, Matrix *secondMatrix)
+Matrix SimpleMatrixCalculations::plus(const Matrix *firstMatrix, const Matrix *secondMatrix)
 {
 	//Init result matrix
 	deconstructMatrix(&resultMatrix);
@@ -112,7 +112,7 @@ Matrix SimpleMatrixCalculations::plus(Matrix *firstMatrix, Matrix *secondMatrix)
 }
 
 
-Matrix SimpleMatrixCalculations::minus(Matrix *firstMatrix, Matrix *secondMatrix)
+Matrix SimpleMatrixCalculations::minus(const Matrix *firstMatrix, const Matrix *secondMatrix)
 {
 	//Init result matrix
 	deconstructMatrix(&resultMatrix);
@@ -140,7 +140,7 @@ Matrix SimpleMatrixCalculations::minus(Matrix *firstMatrix, Matrix *secondMatrix
 }
 
 
-Matrix SimpleMatrixCalculations::multiplication(Matrix *firstMatrix, Matrix *secondMatrix)
+Matrix SimpleMatrixCalculations::multiplication(const Matrix *firstMatrix, const Matrix *secondMatrix)
 {
 	//Init result matrix
 	deconstructMatrix(&resultMatrix);
@@ -181,7 +181,7 @@ Matrix SimpleMatrixCalculations::multiplication(Matrix *firstMatrix, Matrix *sec
 }
 
 
-Matrix SimpleMatrixCalculations::scale(Matrix *orginalMatrix, double scaleProduct)
+Matrix SimpleMatrixCalculations::scale(const Matrix *orginalMatrix, const double scaleProduct)
 {
 	//Init result matrix
 	deconstructMatrix(&resultMatrix);
@@ -209,7 +209,7 @@ Matrix SimpleMatrixCalculations::scale(Matrix *orginalMatrix, double scaleProduc
 }
 
 
-Matrix SimpleMatrixCalculations::transpose(Matrix *orginalMatrix)
+Matrix SimpleMatrixCalculations::transpose(const Matrix *orginalMatrix)
 {
 	//Init result matrix
 	deconstructMatrix(&resultMatrix);

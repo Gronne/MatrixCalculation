@@ -17,6 +17,9 @@ matrixReff::matrixReff(bool intermediateCalculation) : calc(intermediateCalculat
 	results.size = 0;
 	calc.constructMatrixResult(&results);
 
+	//Init pivot arrays
+	pivotR = new int[1];
+	pivotC = new int[1];
 }
 
 
@@ -28,7 +31,7 @@ matrixReff::~matrixReff()
 }
 
 
-Matrix matrixReff::rowReduction(Matrix *orginalMatrix)
+Matrix matrixReff::rowReduction(const Matrix *orginalMatrix)
 {
 	//Init result matrix
 	initMatrix(orginalMatrix);
@@ -45,7 +48,7 @@ Matrix matrixReff::rowReduction(Matrix *orginalMatrix)
 }
 
 
-Matrix matrixReff::echelonReduction(Matrix *orginalMatrix)
+Matrix matrixReff::echelonReduction(const Matrix *orginalMatrix)
 {
 	//Init result matrix
 	initMatrix(orginalMatrix);
@@ -62,7 +65,7 @@ Matrix matrixReff::echelonReduction(Matrix *orginalMatrix)
 }
 
 
-Matrix matrixReff::adjugateInvert(Matrix *orginalMatrix)
+Matrix matrixReff::adjugateInvert(const Matrix *orginalMatrix)
 {
 	if (_intermediateCalculation)
 		cout << "Adjugate invert" << endl;
@@ -128,7 +131,7 @@ Matrix matrixReff::adjugateInvert(Matrix *orginalMatrix)
 }
 
 
-Matrix matrixReff::invert(Matrix *orginalMatrix)
+Matrix matrixReff::invert(const Matrix *orginalMatrix)
 {
 	//Check if it can be inverted
 	if (orginalMatrix->columns != orginalMatrix->rows)
@@ -188,6 +191,7 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 		}
 	}
 
+	//Init the result matrix and load it with the buffer
 	calc.deconstructMatrix(&resultMatrix);
 	resultMatrix.columns = orginalMatrix->columns;
 	resultMatrix.rows = orginalMatrix->rows;
@@ -200,7 +204,10 @@ Matrix matrixReff::invert(Matrix *orginalMatrix)
 			resultMatrix.matrix[j][i] = buffer.matrix[j][i];
 		}
 	}
+
 	
+	//Deconstruct buffer
+	calc.deconstructMatrix(&buffer);
 
 	//Return the inverted matrix
 	return resultMatrix;
@@ -298,7 +305,7 @@ MatrixResult * matrixReff::result(void)
 			results.type = "icu";	//Is it u or t?
 		}
 		else									//Homogen solution
-			results.type = "hct";
+			results.type = "hcu";
 
 
 		//Fill in the space without results in
@@ -319,7 +326,7 @@ MatrixResult * matrixReff::result(void)
 	return &results;
 }
 
-MatrixResult * matrixReff::result(Matrix *orginalMatrix)
+MatrixResult * matrixReff::result(const Matrix *orginalMatrix)
 {
 	//Reff the matrix
 	echelonReduction(orginalMatrix);
@@ -328,7 +335,7 @@ MatrixResult * matrixReff::result(Matrix *orginalMatrix)
 	return result();
 }
 
-MatrixResult * matrixReff::result(Matrix *orginalA, Matrix *orginalB)
+MatrixResult * matrixReff::result(const Matrix *orginalA, const Matrix *orginalB)
 {
 	if (orginalA->rows == orginalB->rows)
 	{
@@ -369,7 +376,7 @@ MatrixResult * matrixReff::result(Matrix *orginalA, Matrix *orginalB)
 	return result();		//Kan man bare ikke kalde result() direkte?
 }
 
-int matrixReff::pivots(Matrix *orginalMatrix)
+int matrixReff::pivots(const Matrix *orginalMatrix)
 {
 	initMatrix(orginalMatrix);
 
@@ -405,24 +412,94 @@ int matrixReff::pivots(void)
 	return numberOfPivots;
 }
 
-int * matrixReff::pivotRows(Matrix *)
+
+int * matrixReff::pivotRows(const Matrix *orginalMatrix)
 {
-	return nullptr;
+	initMatrix(orginalMatrix);
+	singleStair();
+
+	return pivotRows();
 }
+
 
 int * matrixReff::pivotRows(void)
 {
-	return nullptr;
+	delete[] pivotR;
+	pivotR = new int[coreSize+1];
+
+	if (_lastFunctionRun == 0 || _lastFunctionRun > 4)
+	{
+		//Can't finde the pivots
+		pivotR[0] = -1;
+		return pivotR;
+	}
+	if (_intermediateCalculation)
+		cout << "Find pivot rows" << endl;
+
+	int numberOfPivots = 0;
+	int rowCounter = 0;
+
+	for (size_t j = 0; j < resultMatrix.columns && rowCounter < resultMatrix.rows; j++)
+	{
+		if (resultMatrix.matrix[j][rowCounter] != 0)
+		{
+			pivotR[rowCounter] = j;
+			rowCounter++;
+			
+			if (_intermediateCalculation)
+				cout << "Pivot at column: " << j << endl;
+		}
+	}
+
+	pivotR[coreSize] = -1;
+
+	return pivotR;
 }
 
-int * matrixReff::pivotColumns(Matrix *)
+
+int * matrixReff::pivotColumns(const Matrix *orginalMatrix)
 {
-	return nullptr;
+	//Setup resultMatrix and rowreduce
+	initMatrix(orginalMatrix);
+	singleStair();
+
+	//Find and return the rows with pivots in
+	return pivotColumns();
 }
+
 
 int * matrixReff::pivotColumns(void)
 {
-	return nullptr;
+	delete[] pivotC;
+	pivotC = new int[coreSize+1];
+
+	if (_lastFunctionRun == 0 || _lastFunctionRun > 4)
+	{
+		//Can't finde the pivots
+		pivotC[0] = -1;
+		return pivotC;
+	}
+	if (_intermediateCalculation)
+		cout << "Find pivot rows" << endl;
+
+	int numberOfPivots = 0;
+	int rowCounter = 0;
+
+	for (size_t j = 0; j < resultMatrix.columns && rowCounter < resultMatrix.rows; j++)
+	{
+		if (resultMatrix.matrix[j][rowCounter] != 0)
+		{
+			pivotC[rowCounter] = j;
+			rowCounter++;
+
+			if (_intermediateCalculation)
+				cout << "Pivot at column: " << j << endl;
+		}
+	}
+
+	pivotC[coreSize] = -1;
+
+	return pivotC;
 }
 
 
@@ -447,7 +524,7 @@ void matrixReff::copyMatrix(Matrix *newMatrix)
 	}
 }
 
-void matrixReff::printResult(MatrixResult *resultToPrint)
+void matrixReff::printResult(const MatrixResult *resultToPrint)
 {
 	cout << "Number of pivots: " << pivotPrivat() << endl;
 	cout << "Have the solution: " << endl;
@@ -501,6 +578,56 @@ void matrixReff::printResult(MatrixResult *resultToPrint)
 		}
 	}
 	cout << endl;
+}
+
+void matrixReff::printResult()
+{
+	printResult(&results);
+}
+
+void matrixReff::printPivotRows(const Matrix *orginalMatrix)
+{
+	cout << "The rows are: ";
+	int counter = 0;
+
+	for (size_t i = 0; pivotR[i] != -1; i++)
+	{
+		cout << pivotR[i] << " - ";
+		counter++;
+	}
+	cout << endl;
+
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < counter; j++)
+		{
+			cout << orginalMatrix->matrix[pivotR[j]][i] << "\t";
+		}
+		cout << endl;
+	}
+}
+
+void matrixReff::printPivotColumns(const Matrix *orginalMatrix)
+{
+	cout << "The columns are: ";
+	int counter = 0;
+
+	for (size_t i = 0; pivotC[i] != -1; i++)
+	{
+		cout << pivotC[i] << " - ";
+		counter++;
+	}
+	cout << endl;
+
+	for (size_t i = 0; i < counter; i++)
+	{
+		for (size_t j = 0; j < resultMatrix.columns; j++)
+		{
+			cout << orginalMatrix->matrix[j][pivotC[i]] << " ";
+		}
+		cout << endl << endl;
+	}
+
 }
 
 
@@ -652,7 +779,7 @@ void matrixReff::doubleStair(void)
 }
 
 
-void matrixReff::initMatrix(Matrix *orginalMatrix)
+void matrixReff::initMatrix(const Matrix *orginalMatrix)
 {
 	//Init resultmatrix
 	calc.deconstructMatrix(&resultMatrix);

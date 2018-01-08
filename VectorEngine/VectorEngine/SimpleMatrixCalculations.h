@@ -12,15 +12,15 @@ public:
 	void deconstructMatrix(Matrix*);
 	void deconstructMatrixResult(MatrixResult*);
 
-	void printMatrix(Matrix*);			//Overload, so if not anything else have been specified, print resultmatrix
+	void printMatrix(const Matrix*) const;			//Overload, so if not anything else have been specified, print resultmatrix
 	void fillMatrix(Matrix*);
 
-	Matrix plus(Matrix*, Matrix*);
-	Matrix minus(Matrix*, Matrix*);
-	Matrix multiplication(Matrix*, Matrix*);
+	Matrix plus(const Matrix*, const Matrix*);
+	Matrix minus(const Matrix*, const Matrix*);
+	Matrix multiplication(const Matrix*, const Matrix*);
 
-	Matrix scale(Matrix*, double);
-	Matrix transpose(Matrix*);
+	Matrix scale(const Matrix*, double);
+	Matrix transpose(const Matrix*);
 
 	double determinant(Matrix*);
 
@@ -39,6 +39,5 @@ private:
 	//------variables--------
 	bool _intermediateCalculation = 0;				//can also be used for debugging
 		
-
 };
 
