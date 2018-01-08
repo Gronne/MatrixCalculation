@@ -283,7 +283,7 @@ MatrixResult * matrixReff::result(void)
 		{
 			for (size_t j = 0; j < results.freeVariable; j++)
 			{
-				results.result[j][i] = resultMatrix.matrix[resultMatrix.columns - 1 - results.freeVariable + j][i];
+				results.result[j][i] = -resultMatrix.matrix[resultMatrix.columns - 1 - results.freeVariable + j][i];
 			}
 		}
 		
@@ -292,7 +292,7 @@ MatrixResult * matrixReff::result(void)
 
 			for (size_t i = 0; i < results.freeVariable; i++)
 			{
-				results.result[results.freeVariable][i] = -resultMatrix.matrix[resultMatrix.columns - 1][i];
+				results.result[results.freeVariable][i] = resultMatrix.matrix[resultMatrix.columns - 1][i];
 			}
 			
 			results.type = "icu";	//Is it u or t?
@@ -466,10 +466,20 @@ void matrixReff::printResult(MatrixResult *resultToPrint)
 			for (size_t i = 0; i < resultToPrint->freeVariable; i++)
 			{
 				for (size_t j = 0; j < resultToPrint->freeVariable; j++)
-					cout << "+" << "x" << (resultToPrint->size - resultToPrint->freeVariable) + j + 1<< "*" << resultToPrint->result[j][i];
+				{
+					if (resultToPrint->result[j][i] >= 0)
+						cout << "+";
+
+					cout << "x" << (resultToPrint->size - resultToPrint->freeVariable) + j + 1 << "*" << resultToPrint->result[j][i];
+				}
 
 				if (results.type[0] == 'i')
+				{
+					if (resultToPrint->result[resultToPrint->freeVariable][i] >= 0)
+						cout << "+";
+
 					cout << resultToPrint->result[resultToPrint->freeVariable][i];
+				}
 
 				cout << endl;
 			}
