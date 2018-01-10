@@ -6,8 +6,8 @@
 class matrixReff
 {
 public:
-	matrixReff(bool = 0);								//Done
-	~matrixReff();										//Done
+	matrixReff(bool = 0);								//Done	
+	~matrixReff();										//Done	- der er et problem med, at når der skal rref's og der er to 0 rows, men kun 1 relevant free variable, så prøver den stadig for begge
 
 	Matrix rowReduction(const Matrix*);					//Done	- make is so it takes regards for the 0's that can occur after a column is done
 	Matrix echelonReduction(const Matrix*);				//Done	
@@ -50,7 +50,7 @@ private:
 	Matrix resultMatrix;
 
 	//------variables--------
-	bool _intermediateCalculation = 0;				//can also be used for debugging
+	bool _intermediateCalculation = 0;					//can also be used for debugging
 	int coreSize;
 	int _lastFunctionRun = 0;			//1 - rowReduction, 2 - echelonReduction, 3 - invert, 4 - adjugateInvert
 	int *pivotR;						//Pivot rows
@@ -58,5 +58,5 @@ private:
 
 	const int typeSize = 8;
 	char *matrixTypes[8] = { "(n)non", "(h)homogen", "(i)inhomogen", "(c)consistent", "(d)inconsistent", "(e)equivalent", "(t)trivial", "(u)nontrivial" };
-};
+};//Dependent - independent
 

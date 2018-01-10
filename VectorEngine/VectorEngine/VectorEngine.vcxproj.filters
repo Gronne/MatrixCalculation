@@ -24,6 +24,9 @@
     <ClCompile Include="matrixReff.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MatrixType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SimpleMatrixCalculations.h">
@@ -33,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="matrixReff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

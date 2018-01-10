@@ -143,12 +143,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="matrixReff.cpp" />
+    <ClCompile Include="MatrixType.cpp" />
     <ClCompile Include="SimpleMatrixCalculations.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Information.h" />
     <ClInclude Include="matrixReff.h" />
+    <ClInclude Include="MatrixType.h" />
     <ClInclude Include="SimpleMatrixCalculations.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

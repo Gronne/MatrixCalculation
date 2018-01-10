@@ -4,16 +4,16 @@
 
 int main()
 {
-	SimpleMatrixCalculations calc;
+	SimpleMatrixCalculations calc(true);
 	matrixReff rref(true);
 
 	Matrix A;
 	A.rows = 4;
-	A.columns = 2;
+	A.columns = 4;
 
 	Matrix B;
-	B.rows = 2;
-	B.columns = 2;
+	B.rows = 3;
+	B.columns = 1;
 
 	Matrix C;
 	C.rows = 2;
@@ -30,12 +30,8 @@ int main()
 
 
 	//--------------------------------------------
-	calc.printMatrix(&rref.echelonReduction(&A));
-	int *rows = rref.pivotRows();
-	int *columns = rref.pivotColumns();
-
-	rref.printPivotRows(&A);
-	rref.printPivotColumns(&A);
+	rref.echelonReduction(&A);
+	rref.printResult(rref.result());
 
 	//--------------------------------------------
 
