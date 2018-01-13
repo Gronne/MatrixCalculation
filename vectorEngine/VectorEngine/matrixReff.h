@@ -26,6 +26,7 @@ public:
 	int* pivotColumns(void);							//Done, but wrong size?
 
 	void copyMatrix(Matrix*);							//Done
+	void copyResult(MatrixResult*);
 	void printResult(const MatrixResult*);				//Done
 	void printResult();									//Done
 	void printPivotRows(const Matrix*);					//Done

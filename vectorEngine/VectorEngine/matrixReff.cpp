@@ -524,6 +524,28 @@ void matrixReff::copyMatrix(Matrix *newMatrix)
 	}
 }
 
+
+void matrixReff::copyResult(MatrixResult *resultToBeLoaded)
+{
+	//Load with local result values
+	resultToBeLoaded->freeVariable = results.freeVariable;
+	resultToBeLoaded->size = results.size;
+	resultToBeLoaded->type = results.type;
+
+	//Contrsuct result
+	calc.constructMatrixResult(resultToBeLoaded);
+
+	//Load with results
+	for (size_t i = 0; i < results.size; i++)
+	{
+		for (size_t j = 0; j < (results.freeVariable == 0 ? results.freeVariable+1 : (results.type[0] == 'h' ? results.freeVariable : results.freeVariable+1)); j++)
+		{
+			resultToBeLoaded->result[j][i] = results.result[j][i];
+		}
+	}
+}
+
+
 void matrixReff::printResult(const MatrixResult *resultToPrint)
 {
 	cout << "Number of pivots: " << pivotPrivat() << endl;

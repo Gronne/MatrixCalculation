@@ -391,6 +391,27 @@ void SimpleMatrixCalculations::copyMatrix(Matrix *newMatrix)
 	}
 }
 
+bool SimpleMatrixCalculations::mergeMatrix(Matrix *matrix1, Matrix *matrix2)	//Matrix 1 need to be bigger or eual to matrix 2 
+{
+	//Check error
+	if (matrix1->columns < matrix2->columns || matrix1->rows < matrix2->rows)
+	{
+		return false;
+	}
+
+	//Merge matrixs
+	for (size_t i = 0; i < matrix2->rows; i++)
+	{
+		for (size_t j = 0; j < matrix1->columns; j++)
+		{
+			matrix1->matrix[j][i] = matrix2->matrix[j][i];
+		}
+	}
+
+	//The merging have been done correctly
+	return true;
+}
+
 
 double SimpleMatrixCalculations::dotAlg(Matrix *vec)
 {

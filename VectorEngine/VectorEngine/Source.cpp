@@ -8,8 +8,8 @@ int main()
 	matrixReff rref(true);
 
 	Matrix A;
-	A.rows = 4;
-	A.columns = 4;
+	A.rows = 2;
+	A.columns = 3;
 
 	Matrix B;
 	B.rows = 3;

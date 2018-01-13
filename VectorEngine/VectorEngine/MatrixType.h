@@ -10,13 +10,18 @@ public:
 	MatrixType(bool = 0);
 	~MatrixType();
 
-	bool dependency(Matrix*);
-	int vectorSpace(Matrix*);
-	int nullSpace(Matrix*);
+	bool dependency(Matrix*);				//Done
+	bool vectorSpace(Matrix*);
+	bool subSpace(Matrix*);
+	bool nullSpace(Matrix*, Matrix*);
+	MatrixResult* nullSpaceSpan(Matrix*);
+	bool nullity(Matrix*);
 	int columnSpace(Matrix*);
 	int rowSpace(Matrix*);
 	int rank(Matrix*);
+	int rank(MatrixResult*);
 	int bases(Matrix*);
+	int span(Matrix*);
 	Matrix* eigenVector(Matrix*);
 	double* eigenValue(Matrix*);
 	double orthogonal(Matrix*, Matrix*);

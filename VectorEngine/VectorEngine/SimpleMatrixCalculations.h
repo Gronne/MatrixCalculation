@@ -25,6 +25,7 @@ public:
 	double determinant(Matrix*);
 
 	void copyMatrix(Matrix*);
+	bool mergeMatrix(Matrix*, Matrix*);
 
 
 private:
