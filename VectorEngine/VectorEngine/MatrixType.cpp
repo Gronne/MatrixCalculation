@@ -125,10 +125,29 @@ MatrixResult * MatrixType::nullSpaceSpan(Matrix *orginalMatrix)
 }
 
 
-bool MatrixType::nullity(Matrix *)
+int MatrixType::nullity(Matrix *orginalMatrix)	//Rank + nullity = number of columns in the matrix
 {
+	//Init matrix
+	calc.deconstructMatrix(&resultMatrix);
+	resultMatrix.columns = orginalMatrix->columns + 1;
+	resultMatrix.rows = orginalMatrix->rows;
+	calc.constructMatrix(&resultMatrix);
 
-	return false;
+	//Merge orginal and result matrixes
+	calc.mergeMatrix(&resultMatrix, orginalMatrix);
+
+	//Set null column in
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+		resultMatrix.matrix[resultMatrix.columns - 1][i] = 0;
+
+	//Rref to find the matrix
+	rref.echelonReduction(&resultMatrix);
+
+	//Get number og free variables
+	int amount = rref.result()->freeVariable;
+
+	//The amount of free variables is the nullity
+	return amount;
 }
 
 
@@ -150,14 +169,36 @@ int MatrixType::rowSpace(Matrix *orginalMatrix)
 
 int MatrixType::rank(Matrix *orginalMatrix)
 {
-	int result = 0;
+	//Init matrix
+	calc.deconstructMatrix(&resultMatrix);
+	resultMatrix.columns = orginalMatrix->columns + 1;
+	resultMatrix.rows = orginalMatrix->rows;
+	calc.constructMatrix(&resultMatrix);
 
-	return result;
+	//Merge orginal and result matrixes
+	calc.mergeMatrix(&resultMatrix, orginalMatrix);
+
+	//Set null column in
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+		resultMatrix.matrix[resultMatrix.columns - 1][i] = 0;
+
+	//Rref to find the matrix
+	rref.echelonReduction(&resultMatrix);
+	
+	//Number og pivots is the rank of the matrix
+	int amount = rref.pivots();
+
+	//Return result
+	return amount;
 }
 
-int MatrixType::rank(MatrixResult *)
+int MatrixType::rank(MatrixResult *orginalResult)
 {
-	return 0;
+	//Find the rank
+	int amount = orginalResult->size - orginalResult->freeVariable;
+
+	//Return it
+	return amount;
 }
 
 
@@ -169,7 +210,7 @@ int MatrixType::bases(Matrix *orginalMatrix)
 }
 
 
-int MatrixType::span(Matrix *)
+int MatrixType::span(Matrix *orginalMatrix)
 {
 
 	return 0;

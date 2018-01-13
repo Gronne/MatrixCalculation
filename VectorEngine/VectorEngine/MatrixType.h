@@ -13,9 +13,9 @@ public:
 	bool dependency(Matrix*);				//Done
 	bool vectorSpace(Matrix*);
 	bool subSpace(Matrix*);
-	bool nullSpace(Matrix*, Matrix*);
-	MatrixResult* nullSpaceSpan(Matrix*);
-	bool nullity(Matrix*);
+	bool nullSpace(Matrix*, Matrix*);		//Done
+	MatrixResult* nullSpaceSpan(Matrix*);	//Done
+	int nullity(Matrix*);					//Done
 	int columnSpace(Matrix*);
 	int rowSpace(Matrix*);
 	int rank(Matrix*);
