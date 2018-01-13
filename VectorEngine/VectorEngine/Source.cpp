@@ -8,8 +8,8 @@ int main()
 	matrixReff rref(true);
 
 	Matrix A;
-	A.rows = 2;
-	A.columns = 3;
+	A.rows = 3;
+	A.columns = 4;
 
 	Matrix B;
 	B.rows = 3;
@@ -30,8 +30,7 @@ int main()
 
 
 	//--------------------------------------------
-	rref.echelonReduction(&A);
-	rref.printResult(rref.result());
+	calc.printMatrix(&rref.echelonReduction(&A));
 
 	//--------------------------------------------
 

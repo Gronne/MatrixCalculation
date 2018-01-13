@@ -151,15 +151,38 @@ int MatrixType::nullity(Matrix *orginalMatrix)	//Rank + nullity = number of colu
 }
 
 
-int MatrixType::columnSpace(Matrix *orginalMatrix)
+bool MatrixType::columnSpace(Matrix *orginalMatrix, Matrix *vec)	//Can a individual scalar on each vector in the matrix, end up give the 'vec'?
 {
-	int result = 0;
+	//Init matrix
+	calc.deconstructMatrix(&resultMatrix);
+	resultMatrix.columns = orginalMatrix->columns + 1;
+	resultMatrix.rows = orginalMatrix->rows;
+	calc.constructMatrix(&resultMatrix);
 
-	return result;
+	//Merge orginal and result matrixes
+	calc.mergeMatrix(&resultMatrix, orginalMatrix);
+
+	//Set null column in
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+		resultMatrix.matrix[resultMatrix.columns - 1][i] = vec->matrix[0][i];
+
+	//Rref to find the matrix
+	rref.echelonReduction(&resultMatrix);
+
+	//Find result
+	rref.result();
+
+	//Get result
+	rref.copyResult(&results);
+
+	if (results.type[1] == 'd')		//But shall i return the scalars?
+		return false;
+	else
+		return true;
 }
 
 
-int MatrixType::rowSpace(Matrix *orginalMatrix)
+bool MatrixType::rowSpace(Matrix *orginalMatrix, Matrix *vec)
 {
 	int result = 0;
 
@@ -202,7 +225,7 @@ int MatrixType::rank(MatrixResult *orginalResult)
 }
 
 
-int MatrixType::bases(Matrix *orginalMatrix)
+int MatrixType::basis(Matrix *orginalMatrix)
 {
 	int result = 0;
 
@@ -214,22 +237,6 @@ int MatrixType::span(Matrix *orginalMatrix)
 {
 
 	return 0;
-}
-
-
-Matrix * MatrixType::eigenVector(Matrix *orginalMatrix)
-{
-
-
-	return &resultMatrix;
-}
-
-
-double * MatrixType::eigenValue(Matrix *orginalMatrix)
-{
-	double result;
-
-	return &result;
 }
 
 
@@ -278,5 +285,11 @@ double MatrixType::innerProduct(Matrix *orginalMatrix)
 	double result = 0;
 
 	return result;
+}
+
+
+bool MatrixType::isomorphic(Matrix *, Matrix *)
+{
+	return false;
 }
 

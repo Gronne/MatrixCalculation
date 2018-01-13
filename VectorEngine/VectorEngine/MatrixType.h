@@ -16,20 +16,19 @@ public:
 	bool nullSpace(Matrix*, Matrix*);		//Done
 	MatrixResult* nullSpaceSpan(Matrix*);	//Done
 	int nullity(Matrix*);					//Done
-	int columnSpace(Matrix*);
-	int rowSpace(Matrix*);
-	int rank(Matrix*);
-	int rank(MatrixResult*);
-	int bases(Matrix*);
+	bool columnSpace(Matrix*, Matrix*);		//Done
+	bool rowSpace(Matrix*, Matrix*);
+	int rank(Matrix*);						//Done
+	int rank(MatrixResult*);				//Done
+	int basis(Matrix*);
 	int span(Matrix*);
-	Matrix* eigenVector(Matrix*);
-	double* eigenValue(Matrix*);
 	double orthogonal(Matrix*, Matrix*);
 	double orthogonal(Matrix*);
 	double orthonormal(Matrix*, Matrix*);
 	double dot(Matrix*, Matrix*);
 	double cross(Matrix*, Matrix*);
 	double innerProduct(Matrix*);
+	bool isomorphic(Matrix*, Matrix*);
 
 private:
 	
