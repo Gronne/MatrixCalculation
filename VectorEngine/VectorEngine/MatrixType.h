@@ -11,8 +11,8 @@ public:
 	~MatrixType();
 
 	bool dependency(Matrix*);				//Done
-	bool vectorSpace(Matrix*);
-	bool subSpace(Matrix*);
+	bool vectorSpace(Space*);
+	bool subSpace(Space*);
 	bool nullSpace(Matrix*, Matrix*);		//Done
 	MatrixResult* nullSpaceSpan(Matrix*);	//Done
 	int nullity(Matrix*);					//Done
@@ -20,7 +20,8 @@ public:
 	bool rowSpace(Matrix*, Matrix*);
 	int rank(Matrix*);						//Done
 	int rank(MatrixResult*);				//Done
-	int basis(Matrix*);
+	bool basis(Matrix*);					//Done
+	bool basis(Matrix*, Space*);
 	int span(Matrix*);
 	double orthogonal(Matrix*, Matrix*);
 	double orthogonal(Matrix*);
@@ -39,6 +40,7 @@ private:
 	matrixReff rref;
 	MatrixResult results;
 	Matrix resultMatrix;
+	Space _space;
 
 	//------variables--------
 	bool _intermediateCalculation = 0;					//can also be used for debugging

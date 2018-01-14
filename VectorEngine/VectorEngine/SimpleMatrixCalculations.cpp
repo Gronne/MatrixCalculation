@@ -39,6 +39,14 @@ void SimpleMatrixCalculations::constructMatrixResult(MatrixResult *conMatrixResu
 		conMatrixResult->result[i] = new double[conMatrixResult->size];
 }
 
+void SimpleMatrixCalculations::constructSpace(Space *space)
+{
+	space->spaces = new RegressionPart*[space->variables];
+	for (size_t i = 0; i < space->sets; i++)
+		space->spaces[i] = new RegressionPart[space->sets];
+
+}
+
 
 void SimpleMatrixCalculations::deconstructMatrix(Matrix *deconMatrix)
 {
@@ -57,6 +65,13 @@ void SimpleMatrixCalculations::deconstructMatrixResult(MatrixResult *deconMatrix
 	for (size_t i = 0; i < columns; i++)
 		delete[] deconMatrixResult->result[i];
 	delete[] deconMatrixResult->result;
+}
+
+void SimpleMatrixCalculations::deconstructSpace(Space *space)
+{
+	for (size_t i = 0; i < space->variables; i++)
+		delete[] space->spaces[i];
+	delete[] space->spaces;
 }
 
 

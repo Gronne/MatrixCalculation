@@ -18,6 +18,9 @@ MatrixType::MatrixType(bool intermediateCalculation) :
 	results.freeVariable = 0;
 	results.size = 0;
 	calc.constructMatrixResult(&results);
+
+	//Construct a base Space (Will now possible) - inner values already set to default.
+	calc.constructSpace(&_space);
 }
 
 
@@ -26,6 +29,7 @@ MatrixType::~MatrixType()
 	//Deconstruc objects constructed in the constructor
 	calc.deconstructMatrix(&resultMatrix);
 	calc.deconstructMatrixResult(&results);
+	calc.deconstructSpace(&_space);
 }
 
 
@@ -47,7 +51,7 @@ bool MatrixType::dependency(Matrix *orginalMatrix)
 //Et vector space, er en regl eller et sæt af regler, som definere hvilke vektorer der må dannes i det givet space.
 //Hvis de dannede vektorer opfylder de angivet grav og ved brug af disse, stadig ikke går ud over de defineret rammer,
 //opfylder det reglen for at være et vektor space.
-bool MatrixType::vectorSpace(Matrix *space)
+bool MatrixType::vectorSpace(Space *spaceGuess)
 {
 	int result = 0;
 
@@ -62,7 +66,7 @@ bool MatrixType::vectorSpace(Matrix *space)
 //Zero vectoren fra vector spacet, skal også være i subspacet
 //Subspacet er lukket under addition
 //Subspavet er lukket under multiplication.
-bool MatrixType::subSpace(Matrix *orginalMatrix)
+bool MatrixType::subSpace(Space *subSpaceGuess)
 {
 	int result = 0;
 
@@ -225,11 +229,22 @@ int MatrixType::rank(MatrixResult *orginalResult)
 }
 
 
-int MatrixType::basis(Matrix *orginalMatrix)
+bool MatrixType::basis(Matrix *orginalMatrix)	//Before it can be a basis, it need to have a pivot in each row. If not, it does not span R^n
 {
-	int result = 0;
+	int piv = rref.pivots(orginalMatrix);
 
-	return result;
+	if (piv == orginalMatrix->columns)
+		return true;
+	else
+		return false;
+}
+
+
+bool MatrixType::basis(Matrix *orginalMatrix, Space *space)
+{
+	
+
+	return true;
 }
 
 

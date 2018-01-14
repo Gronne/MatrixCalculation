@@ -9,8 +9,10 @@ public:
 
 	void constructMatrix(Matrix*);
 	void constructMatrixResult(MatrixResult*);
+	void constructSpace(Space*);
 	void deconstructMatrix(Matrix*);
 	void deconstructMatrixResult(MatrixResult*);
+	void deconstructSpace(Space*);
 
 	void printMatrix(const Matrix*) const;			//Overload, so if not anything else have been specified, print resultmatrix
 	void fillMatrix(Matrix*);

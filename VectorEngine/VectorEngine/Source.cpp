@@ -9,7 +9,7 @@ int main()
 
 	Matrix A;
 	A.rows = 3;
-	A.columns = 4;
+	A.columns = 3;
 
 	Matrix B;
 	B.rows = 3;
