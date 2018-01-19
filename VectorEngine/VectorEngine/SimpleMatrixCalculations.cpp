@@ -195,6 +195,36 @@ Matrix SimpleMatrixCalculations::multiplication(const Matrix *firstMatrix, const
 	return resultMatrix;
 }
 
+Matrix SimpleMatrixCalculations::hadamardProduct(Matrix *firstMatrix, Matrix *secondMatrix)
+{
+	//Init matrix
+	deconstructMatrix(&resultMatrix);
+
+	resultMatrix.columns = firstMatrix->columns;
+	resultMatrix.rows = firstMatrix->rows;
+
+	constructMatrix(&resultMatrix);
+
+	//Find the product
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < resultMatrix.columns; j++)
+		{
+			resultMatrix.matrix[j][i] = firstMatrix->matrix[j][i] * secondMatrix->matrix[j][i];
+		}
+	}
+
+	//Extra information
+	if (_intermediateCalculation)
+	{
+		cout << "hadamardProduct" << endl;
+		printMatrix(&resultMatrix);
+	}
+		
+	//Return answer
+	return resultMatrix;
+}
+
 
 Matrix SimpleMatrixCalculations::scale(const Matrix *orginalMatrix, const double scaleProduct)
 {
@@ -425,6 +455,45 @@ bool SimpleMatrixCalculations::mergeMatrix(Matrix *matrix1, Matrix *matrix2)	//M
 
 	//The merging have been done correctly
 	return true;
+}
+
+void SimpleMatrixCalculations::mergeIntoResultMatrix(Matrix *firstMatrix, Matrix *secondMatrix)
+{
+	//Find dimension of resultMatrix
+	int rowSize		= (firstMatrix->rows < secondMatrix->rows ? secondMatrix->rows : firstMatrix->rows);
+	int columnSize = firstMatrix->columns + secondMatrix->columns;
+
+	//Init resultMatrix
+	deconstructMatrix(&resultMatrix);
+	resultMatrix.columns =	columnSize;
+	resultMatrix.rows =		rowSize;
+
+	//Fill matrix with zeros
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < resultMatrix.columns; j++)
+		{
+			resultMatrix.matrix[j][i] = 0;
+		}
+	}
+
+	//Fill matrix with the firstMatrix
+	for (size_t i = 0; i < firstMatrix->rows; i++)
+	{
+		for (size_t j = 0; j < firstMatrix->columns; j++)
+		{
+			resultMatrix.matrix[j][i] = firstMatrix->matrix[j][i];
+		}
+	}
+
+	//Fill matrix with the secondMatrix
+	for (size_t i = 0; i < secondMatrix->rows; i++)
+	{
+		for (size_t j = 0; j < secondMatrix->columns; j++)
+		{
+			resultMatrix.matrix[j][i+firstMatrix->rows] = secondMatrix->matrix[j][i];
+		}
+	}
 }
 
 

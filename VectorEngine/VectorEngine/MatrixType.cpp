@@ -21,6 +21,9 @@ MatrixType::MatrixType(bool intermediateCalculation) :
 
 	//Construct a base Space (Will now possible) - inner values already set to default.
 	calc.constructSpace(&_space);
+
+	//Span values
+	spanValues = new double[1];
 }
 
 
@@ -30,6 +33,7 @@ MatrixType::~MatrixType()
 	calc.deconstructMatrix(&resultMatrix);
 	calc.deconstructMatrixResult(&results);
 	calc.deconstructSpace(&_space);
+	delete[] spanValues;
 }
 
 
@@ -248,26 +252,144 @@ bool MatrixType::basis(Matrix *orginalMatrix, Space *space)
 }
 
 
-int MatrixType::span(Matrix *orginalMatrix)
+Matrix* MatrixType::span(Matrix *orginalMatrix)
 {
+	//Find pivots collumns
+	int *numberOfPivots = rref.pivotColumns(orginalMatrix);
+	
+	//Init resultMatrix
+	calc.deconstructMatrix(&resultMatrix);
+	resultMatrix.columns = rref.pivots();
+	resultMatrix.rows = orginalMatrix->rows;
+	calc.constructMatrix(&resultMatrix);
 
-	return 0;
+	//set resultMatrix
+	for (size_t i = 0; i < resultMatrix.rows; i++)
+	{
+		for (size_t j = 0; j < resultMatrix.columns; j++)
+		{
+			resultMatrix.matrix[j][i] = orginalMatrix->matrix[numberOfPivots[j]][i];
+		}
+	}
+
+	//Delete
+	delete numberOfPivots;
+
+	//Return resultMatrix
+	return &resultMatrix;
+}
+
+double * MatrixType::span(Matrix *spanMatrix, Matrix *vec)
+{
+	//Init spanValues
+	delete[] spanValues;
+	spanValues = new double[spanMatrix->columns];
+
+	//Merge matrix with vec
+	calc.mergeIntoResultMatrix(spanMatrix, vec);
+	calc.copyMatrix(&resultMatrix);
+
+	//find number of pivots for spanMatrix and rref it at the same time
+	int numberOfPivots = rref.pivots(&resultMatrix);
+
+	//Get resultMatrix
+	rref.copyMatrix(&resultMatrix);
+
+	//Fill in result:
+	int counter;
+	for (counter = 0; counter < numberOfPivots; counter++)
+	{
+		spanValues[counter] = resultMatrix.matrix[resultMatrix.columns - 1][counter];
+	}
+	for (; counter < spanMatrix->columns; counter++)
+	{
+		spanValues[counter] = 0;
+	}
+
+	//Return span values
+	return spanValues;
+}
+
+bool MatrixType::checkSpan(Matrix *spanMatrix, Matrix *vec)	//If a there is free variables, the ones without a pivot will be set to zero.
+{
+	//Merge matrix with vec
+	calc.mergeIntoResultMatrix(spanMatrix, vec);
+	calc.copyMatrix(&resultMatrix);
+
+	//rref the new matrix
+	int numberOfPivotsMerged = rref.pivots(&resultMatrix);
+	int numberofPivots = rref.pivots(spanMatrix);
+
+	//Check if vec can be expressed with spanMatrix
+	if (numberOfPivotsMerged == numberofPivots)
+		return false;
+	else if (numberOfPivotsMerged > numberofPivots)
+		return true;
 }
 
 
-double MatrixType::orthogonal(Matrix *vec1, Matrix *vec2)
+bool MatrixType::orthogonal(Matrix *vec1, Matrix *vec2)
 {
-	double result = 0;
-
-	return result;
+	if (dot(vec1, vec2))
+		return false;
+	else
+		return true;
 }
 
 
-double MatrixType::orthogonal(Matrix *orginalMatrix)
+bool MatrixType::orthogonal(Matrix *orginalMatrix)
 {
-	double result = 0;
+	//Check if it spans over enougth planes
+	if (orginalMatrix->columns > orginalMatrix->rows)
+		return false;
 
-	return result;
+	//Make vectors
+	Matrix vec1;
+	Matrix vec2;
+
+	vec1.columns = 1;
+	vec2.columns = 1;
+	vec1.rows = orginalMatrix->rows;
+	vec2.rows = orginalMatrix->rows;
+
+	calc.constructMatrix(&vec1);
+	calc.constructMatrix(&vec2);
+
+
+	//Check span
+	double value = 0;
+	for (size_t i = 0; i < orginalMatrix->columns-1; i++)
+	{
+		for (size_t j = i+1; j < orginalMatrix->columns; j++)
+		{
+			//Transfer information to vectors
+			for (size_t m = 0; m < vec1.rows; m++)
+			{
+				vec1.matrix[0][m] = orginalMatrix->matrix[i][m];
+			}
+			for (size_t m = 0; m < vec1.rows; m++)
+			{
+				vec2.matrix[0][m] = orginalMatrix->matrix[j][m];
+			}
+
+			//Check dot product between vectors
+			value = dot(&vec1, &vec2);
+
+			//Validate value
+			if (value)
+				break;
+		}
+	}
+
+	//Delete vectors
+	calc.deconstructMatrix(&vec1);
+	calc.deconstructMatrix(&vec2);
+
+	//Return result
+	if (value)
+		return false;
+	else
+		return true;
 }
 
 
@@ -281,8 +403,22 @@ double MatrixType::orthonormal(Matrix *vec1, Matrix *vec2)
 
 double MatrixType::dot(Matrix *vec1, Matrix *vec2)
 {
+	//Init 
 	double result = 0;
+	double mellem = 0;
 
+	//Intermediate calculations
+	if (_intermediateCalculation == 1)
+		cout << "dotalg" << endl;
+
+	//Dot together
+	for (size_t i = 0; i < vec1->columns; i++)
+	{
+		mellem = vec1->matrix[0][i] * vec2->matrix[1][i];
+		result += mellem;
+	}
+
+	//return result
 	return result;
 }
 
@@ -295,9 +431,10 @@ double MatrixType::cross(Matrix *vec1, Matrix *vec2)
 }
 
 
-double MatrixType::innerProduct(Matrix *orginalMatrix)
+double MatrixType::innerProductSpace(Matrix *orginalMatrix)
 {
 	double result = 0;
+
 
 	return result;
 }

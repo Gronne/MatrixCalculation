@@ -1,5 +1,4 @@
-﻿  Source.cpp
-  SimpleMatrixCalculations.cpp
+﻿  SimpleMatrixCalculations.cpp
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(45): warning C4018: '<': signed/unsigned mismatch
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(56): warning C4018: '<': signed/unsigned mismatch
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(65): warning C4018: '<': signed/unsigned mismatch
@@ -15,32 +14,47 @@ c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simp
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(176): warning C4018: '<': signed/unsigned mismatch
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(178): warning C4018: '<': signed/unsigned mismatch
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(180): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(213): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(215): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(242): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(244): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(298): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(301): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(338): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(341): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(400): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(402): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(418): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(420): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(442): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(456): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(458): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(209): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(211): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(243): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(245): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(272): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(274): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(328): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(331): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(368): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(371): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(430): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(432): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(448): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(450): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(472): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(474): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(481): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(483): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(490): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(492): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(511): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(525): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\simplematrixcalculations.cpp(527): warning C4018: '<': signed/unsigned mismatch
   MatrixType.cpp
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(58): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(74): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(86): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(111): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(144): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(170): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(193): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(209): warning C4018: '<': signed/unsigned mismatch
-c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(236): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(62): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(78): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(90): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(115): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(148): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(174): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(197): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(213): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(267): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(269): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(361): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(363): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(366): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(370): warning C4018: '<': signed/unsigned mismatch
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(415): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
+c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixtype.cpp(328): warning C4715: 'MatrixType::checkSpan': not all control paths return a value
   Compiling...
   matrixReff.cpp
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(86): warning C4018: '<': signed/unsigned mismatch
@@ -116,5 +130,7 @@ c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matr
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(935): warning C4018: '<': signed/unsigned mismatch
 c:\users\mathi\documents\github\matrixcalculation\vectorengine\vectorengine\matrixreff.cpp(937): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
+  Skipping... (no relevant changes detected)
+  Source.cpp
   VectorEngine.vcxproj -> C:\Users\mathi\Documents\GitHub\MatrixCalculation\VectorEngine\Debug\VectorEngine.exe
   VectorEngine.vcxproj -> C:\Users\mathi\Documents\GitHub\MatrixCalculation\VectorEngine\Debug\VectorEngine.pdb (Full PDB)

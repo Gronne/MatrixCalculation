@@ -7,33 +7,35 @@ public:
 	SimpleMatrixCalculations(bool = 0);
 	~SimpleMatrixCalculations();
 
-	void constructMatrix(Matrix*);
-	void constructMatrixResult(MatrixResult*);
-	void constructSpace(Space*);
-	void deconstructMatrix(Matrix*);
-	void deconstructMatrixResult(MatrixResult*);
-	void deconstructSpace(Space*);
+	void constructMatrix(Matrix*);						//Done
+	void constructMatrixResult(MatrixResult*);			//Done
+	void constructSpace(Space*);						//Done
+	void deconstructMatrix(Matrix*);					//Done
+	void deconstructMatrixResult(MatrixResult*);		//Done
+	void deconstructSpace(Space*);						//Done
 
-	void printMatrix(const Matrix*) const;			//Overload, so if not anything else have been specified, print resultmatrix
-	void fillMatrix(Matrix*);
+	void printMatrix(const Matrix*) const;				//Done
+	void fillMatrix(Matrix*);							//Done
 
-	Matrix plus(const Matrix*, const Matrix*);
-	Matrix minus(const Matrix*, const Matrix*);
-	Matrix multiplication(const Matrix*, const Matrix*);
+	Matrix plus(const Matrix*, const Matrix*);			//Done
+	Matrix minus(const Matrix*, const Matrix*);			//Done
+	Matrix multiplication(const Matrix*, const Matrix*);//Done
+	Matrix hadamardProduct(Matrix*, Matrix*);			//Done
 
-	Matrix scale(const Matrix*, double);
-	Matrix transpose(const Matrix*);
+	Matrix scale(const Matrix*, double);				//Done
+	Matrix transpose(const Matrix*);					//Done
 
-	double determinant(Matrix*);
+	double determinant(Matrix*);						//Done
 
-	void copyMatrix(Matrix*);
-	bool mergeMatrix(Matrix*, Matrix*);
+	void copyMatrix(Matrix*);							//Done
+	bool mergeMatrix(Matrix*, Matrix*);					//Done - need testing
+	void mergeIntoResultMatrix(Matrix*, Matrix*);		//Done - need testing
 
 
 private:
-	double dotAlg(Matrix*);
-	void flipMatrix(Matrix *);
-	double determinantPrivat(int *exclude);
+	double dotAlg(Matrix*);								//Done
+	void flipMatrix(Matrix *);							//Done
+	double determinantPrivat(int *exclude);				//Done
 
 	//-------objects---------
 	Matrix resultMatrix;
