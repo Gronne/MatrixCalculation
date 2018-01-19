@@ -261,7 +261,7 @@ MatrixResult * matrixReff::result(void)
 	else
 	{
 		//Check if there is 0 = 1, statements
-		for (size_t i = coreSize-1; i < results.size-results.freeVariable; i--)
+		for (size_t i = 0; i < resultMatrix.rows; i++)
 		{
 			if (resultMatrix.matrix[resultMatrix.columns-1][i] != 0 && resultMatrix.matrix[resultMatrix.columns - 2][i] == 0)
 			{
@@ -381,6 +381,7 @@ int matrixReff::pivots(const Matrix *orginalMatrix)
 	initMatrix(orginalMatrix);
 
 	singleStair();
+	_lastFunctionRun = 1;
 
 	return pivots();
 }
@@ -462,7 +463,7 @@ int * matrixReff::pivotColumns(const Matrix *orginalMatrix)
 	//Setup resultMatrix and rowreduce
 	initMatrix(orginalMatrix);
 	singleStair();
-
+	_lastFunctionRun = 1;
 	//Find and return the rows with pivots in
 	return pivotColumns();
 }
@@ -528,19 +529,28 @@ void matrixReff::copyMatrix(Matrix *newMatrix)
 void matrixReff::copyResult(MatrixResult *resultToBeLoaded)
 {
 	//Load with local result values
+	calc.deconstructMatrixResult(resultToBeLoaded);
 	resultToBeLoaded->freeVariable = results.freeVariable;
 	resultToBeLoaded->size = results.size;
 	resultToBeLoaded->type = results.type;
-
+	
 	//Contrsuct result
 	calc.constructMatrixResult(resultToBeLoaded);
 
-	//Load with results
-	for (size_t i = 0; i < results.size; i++)
+	//Inconsistent
+	if (results.type[1] == 'd')
 	{
-		for (size_t j = 0; j < (results.freeVariable == 0 ? results.freeVariable+1 : (results.type[0] == 'h' ? results.freeVariable : results.freeVariable+1)); j++)
+		
+	}
+	else
+	{
+		//Load with results
+		for (size_t i = 0; i < results.size; i++)
 		{
-			resultToBeLoaded->result[j][i] = results.result[j][i];
+			for (size_t j = 0; j < (results.freeVariable == 0 ? results.freeVariable + 1 : (results.type[0] == 'h' ? results.freeVariable : results.freeVariable + 1)); j++)
+			{
+				resultToBeLoaded->result[j][i] = results.result[j][i];
+			}
 		}
 	}
 }

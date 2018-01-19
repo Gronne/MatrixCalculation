@@ -176,7 +176,7 @@ bool MatrixType::columnSpace(Matrix *orginalMatrix, Matrix *vec)	//Can a individ
 
 	//Rref to find the matrix
 	rref.echelonReduction(&resultMatrix);
-
+	
 	//Find result
 	rref.result();
 
@@ -273,11 +273,12 @@ Matrix* MatrixType::span(Matrix *orginalMatrix)
 	}
 
 	//Delete
-	delete numberOfPivots;
+	delete[] numberOfPivots;
 
 	//Return resultMatrix
 	return &resultMatrix;
 }
+
 
 double * MatrixType::span(Matrix *spanMatrix, Matrix *vec)
 {
@@ -290,7 +291,8 @@ double * MatrixType::span(Matrix *spanMatrix, Matrix *vec)
 	calc.copyMatrix(&resultMatrix);
 
 	//find number of pivots for spanMatrix and rref it at the same time
-	int numberOfPivots = rref.pivots(&resultMatrix);
+	rref.echelonReduction(&resultMatrix);
+	int numberOfPivots = rref.pivots();
 
 	//Get resultMatrix
 	rref.copyMatrix(&resultMatrix);
@@ -322,9 +324,9 @@ bool MatrixType::checkSpan(Matrix *spanMatrix, Matrix *vec)	//If a there is free
 
 	//Check if vec can be expressed with spanMatrix
 	if (numberOfPivotsMerged == numberofPivots)
-		return false;
-	else if (numberOfPivotsMerged > numberofPivots)
 		return true;
+	else 
+		return false;
 }
 
 
@@ -379,6 +381,8 @@ bool MatrixType::orthogonal(Matrix *orginalMatrix)
 			if (value)
 				break;
 		}
+		if (value)
+			break;
 	}
 
 	//Delete vectors
@@ -412,9 +416,9 @@ double MatrixType::dot(Matrix *vec1, Matrix *vec2)
 		cout << "dotalg" << endl;
 
 	//Dot together
-	for (size_t i = 0; i < vec1->columns; i++)
+	for (size_t i = 0; i < vec1->rows; i++)
 	{
-		mellem = vec1->matrix[0][i] * vec2->matrix[1][i];
+		mellem = vec1->matrix[0][i] * vec2->matrix[0][i];
 		result += mellem;
 	}
 

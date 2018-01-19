@@ -1,23 +1,25 @@
 #include "SimpleMatrixCalculations.h"
 #include "matrixReff.h"
+#include "MatrixType.h"
 
 
 int main()
 {
-	SimpleMatrixCalculations calc(true);
-	matrixReff rref(true);
+	SimpleMatrixCalculations calc(false);
+	matrixReff rref(false);
+	MatrixType type(false);
 
 	Matrix A;
 	A.rows = 3;
-	A.columns = 3;
+	A.columns = 1;
 
 	Matrix B;
 	B.rows = 3;
 	B.columns = 1;
 
 	Matrix C;
-	C.rows = 2;
-	C.columns = 2;
+	C.rows = 3;
+	C.columns = 3;
 
 
 	calc.constructMatrix(&A);
@@ -25,13 +27,12 @@ int main()
 	calc.constructMatrix(&C);
 
 	calc.fillMatrix(&A);
-	//calc.fillMatrix(&B);
+	calc.fillMatrix(&B);
 	//calc.fillMatrix(&C);
 
 
 	//--------------------------------------------
-	calc.printMatrix(&rref.echelonReduction(&A));
-
+	cout << type.dot(&A, &B) << endl;
 	//--------------------------------------------
 
 	calc.deconstructMatrix(&A);

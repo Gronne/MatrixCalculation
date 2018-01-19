@@ -28,8 +28,8 @@ public:
 	double determinant(Matrix*);						//Done
 
 	void copyMatrix(Matrix*);							//Done
-	bool mergeMatrix(Matrix*, Matrix*);					//Done - need testing
-	void mergeIntoResultMatrix(Matrix*, Matrix*);		//Done - need testing
+	bool mergeMatrix(Matrix*, Matrix*);					//Done
+	void mergeIntoResultMatrix(Matrix*, Matrix*);		//Done
 
 
 private:

@@ -447,7 +447,7 @@ bool SimpleMatrixCalculations::mergeMatrix(Matrix *matrix1, Matrix *matrix2)	//M
 	//Merge matrixs
 	for (size_t i = 0; i < matrix2->rows; i++)
 	{
-		for (size_t j = 0; j < matrix1->columns; j++)
+		for (size_t j = 0; j < matrix2->columns; j++)
 		{
 			matrix1->matrix[j][i] = matrix2->matrix[j][i];
 		}
@@ -467,6 +467,7 @@ void SimpleMatrixCalculations::mergeIntoResultMatrix(Matrix *firstMatrix, Matrix
 	deconstructMatrix(&resultMatrix);
 	resultMatrix.columns =	columnSize;
 	resultMatrix.rows =		rowSize;
+	constructMatrix(&resultMatrix);
 
 	//Fill matrix with zeros
 	for (size_t i = 0; i < resultMatrix.rows; i++)
@@ -491,7 +492,7 @@ void SimpleMatrixCalculations::mergeIntoResultMatrix(Matrix *firstMatrix, Matrix
 	{
 		for (size_t j = 0; j < secondMatrix->columns; j++)
 		{
-			resultMatrix.matrix[j][i+firstMatrix->rows] = secondMatrix->matrix[j][i];
+			resultMatrix.matrix[j+firstMatrix->columns][i] = secondMatrix->matrix[j][i];
 		}
 	}
 }
