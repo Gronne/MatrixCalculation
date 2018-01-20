@@ -31,7 +31,7 @@ struct RegressionPart
 
 struct Regression
 {
-	vector<RegressionPart> regression;
+	vector<RegressionPart> regression;	
 };
 
 

@@ -142,12 +142,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ComplexMatrixCalculations.cpp" />
     <ClCompile Include="matrixReff.cpp" />
     <ClCompile Include="MatrixType.cpp" />
     <ClCompile Include="SimpleMatrixCalculations.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComplexMatrixCalculations.h" />
     <ClInclude Include="Information.h" />
     <ClInclude Include="matrixReff.h" />
     <ClInclude Include="MatrixType.h" />

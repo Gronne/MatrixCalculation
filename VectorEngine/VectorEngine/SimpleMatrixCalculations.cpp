@@ -48,7 +48,22 @@ void SimpleMatrixCalculations::constructSpace(Space *space)
 }
 
 
-void SimpleMatrixCalculations::deconstructMatrix(Matrix *deconMatrix)
+void SimpleMatrixCalculations::constructRegression(Regression *orginalRegression)
+{
+	RegressionPart part;
+	part.constant = 0;
+	part.POW = 0;
+	part.type = 0;
+	orginalRegression->regression.push_back(part);
+}
+
+void SimpleMatrixCalculations::constructRegression(Regression *orginalRegression, RegressionPart orginalPart)
+{
+	orginalRegression->regression.push_back(orginalPart);
+}
+
+
+void SimpleMatrixCalculations::deconstructMatrix(Matrix *deconMatrix)	
 {
 	//if (_intermediateCalculation == 1)
 	//	cout << "Deconstruct matrix" << endl; 
@@ -57,6 +72,7 @@ void SimpleMatrixCalculations::deconstructMatrix(Matrix *deconMatrix)
 		delete[] deconMatrix->matrix[i];
 	delete[] deconMatrix->matrix;
 }
+
 
 void SimpleMatrixCalculations::deconstructMatrixResult(MatrixResult *deconMatrixResult)
 {
@@ -67,11 +83,18 @@ void SimpleMatrixCalculations::deconstructMatrixResult(MatrixResult *deconMatrix
 	delete[] deconMatrixResult->result;
 }
 
+
 void SimpleMatrixCalculations::deconstructSpace(Space *space)
 {
 	for (size_t i = 0; i < space->variables; i++)
 		delete[] space->spaces[i];
 	delete[] space->spaces;
+}
+
+
+void SimpleMatrixCalculations::deconstructRegression(Regression *orginalRegression)
+{
+	orginalRegression->regression.clear();		//The deconstructer will be called on every object individually, when the deconstructer is called
 }
 
 

@@ -10,9 +10,12 @@ public:
 	void constructMatrix(Matrix*);						//Done
 	void constructMatrixResult(MatrixResult*);			//Done
 	void constructSpace(Space*);						//Done
+	void constructRegression(Regression*);				//Done
+	void constructRegression(Regression*, RegressionPart);
 	void deconstructMatrix(Matrix*);					//Done
 	void deconstructMatrixResult(MatrixResult*);		//Done
 	void deconstructSpace(Space*);						//Done
+	void deconstructRegression(Regression*);			//Done
 
 	void printMatrix(const Matrix*) const;				//Done
 	void fillMatrix(Matrix*);							//Done
