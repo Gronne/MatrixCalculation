@@ -44,22 +44,28 @@ void SimpleMatrixCalculations::constructSpace(Space *space)
 	space->spaces = new RegressionPart*[space->variables];
 	for (size_t i = 0; i < space->sets; i++)
 		space->spaces[i] = new RegressionPart[space->sets];
-
 }
 
 
-void SimpleMatrixCalculations::constructRegression(Regression *orginalRegression)
-{
-	RegressionPart part;
-	part.A = 0;
-	part.B = 0;
-	part.type = 0;
-	orginalRegression->regression.push_back(part);
-}
 
-void SimpleMatrixCalculations::constructRegression(Regression *orginalRegression, RegressionPart orginalPart)
+void SimpleMatrixCalculations::constructRegression(Regression *orginalRegression)	//A vector will first be constructed when the regressionPart is done
 {
-	orginalRegression->regression.push_back(orginalPart);
+	//Find size of matrix
+	int count = 0;
+	for (size_t i = 0; orginalRegression->rightSide[i] != '\0'; i++)
+		if (orginalRegression->rightSide[i] == 1)
+			count++;
+
+	//Load variate variable in the regression struct
+	orginalRegression->variate = count;
+
+	//Create matrix
+	orginalRegression->answers = new double*[orginalRegression->regression.size()];
+	for (size_t i = 0; i < orginalRegression->regression.size(); i++)
+		orginalRegression->answers[i] = new double[count];
+
+	//Create precision array
+	orginalRegression->precision = new double[count];
 }
 
 
@@ -94,6 +100,15 @@ void SimpleMatrixCalculations::deconstructSpace(Space *space)
 
 void SimpleMatrixCalculations::deconstructRegression(Regression *orginalRegression)
 {
+	//Delete answer matrix
+	for (size_t i = 0; i < orginalRegression->regression.size(); i++)
+		delete[] orginalRegression->answers[i];
+	delete[] orginalRegression->answers;
+
+	//Delete precision array
+	delete[] orginalRegression->precision;
+
+	//Delete regression vector
 	orginalRegression->regression.clear();		//The deconstructer will be called on every object individually, when the deconstructer is called
 }
 

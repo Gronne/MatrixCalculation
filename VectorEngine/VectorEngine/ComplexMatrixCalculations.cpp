@@ -86,3 +86,10 @@ double * ComplexMatrixCalculations::eigenValues(Matrix *)
 	return nullptr;
 }
 
+
+void ComplexMatrixCalculations::sortData(void)		//sort from bottom and up, but only if two have the same - make as a recrussive function?
+{
+	//Quick sort vs. block sort vs. merge sort - thread?
+	//This time there will be used merge sort
+
+}

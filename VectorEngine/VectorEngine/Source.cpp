@@ -11,7 +11,7 @@ int main()
 
 	Matrix A;
 	A.rows = 3;
-	A.columns = 1;
+	A.columns = 4;
 
 	Matrix B;
 	B.rows = 3;
@@ -27,13 +27,15 @@ int main()
 	calc.constructMatrix(&C);
 
 	calc.fillMatrix(&A);
-	calc.fillMatrix(&B);
+	//calc.fillMatrix(&B);
 	//calc.fillMatrix(&C);
 
 
 	//--------------------------------------------
-	cout << type.dot(&A, &B) << endl;
+	
+
 	//--------------------------------------------
+
 
 	calc.deconstructMatrix(&A);
 	calc.deconstructMatrix(&B);

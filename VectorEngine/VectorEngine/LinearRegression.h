@@ -4,7 +4,7 @@
 #include "SimpleMatrixCalculations.h"
 #include "matrixReff.h"
 #include "MatrixType.h"
-#include "vector"
+#include <math.h>
 
 using namespace std;
 
@@ -14,19 +14,20 @@ public:
 	LinearRegression(bool = 0);
 	~LinearRegression();
 
-	Regression* findStandardRegression(Matrix*, Regression*);
-	Regression* findBestRegression(Matrix*, int = 1, int = 1);					//Will this one return the prototype or the hole regression?
-	double precision(Matrix*, Regression*);						//Hvor godt regressionen passer på matrix datasættet
-	void copyRegression(Regression*);							//Will copy the found regression.
-	void printRegression(Regression*);
+	Regression* findStandardRegression(Matrix*, Regression*);			//Done - need testing
+	Regression* findBestRegression(Matrix*, int = 1, int = 1);			//
+	void precision(Matrix*, Regression*);								//Done - need testing
+	void copyRegression(Regression*);										//Will I need this one?
+	void printRegression(Regression*);									//Done - need testing
+	void addRegressionPart(Regression*, RegressionPart);				//Done - need testing
+	double valueAtCoordinate(Matrix*, Regression*, int);
 
 
 private:
 	void findRegression(Regression*);
 	Regression* findDominantRegression(Matrix*, Regression*);
 	Regression* getRegressionFromCoordinates(Matrix*, Regression*);
-	double regressionPredicsion(Matrix*, Regression*);
-	void sortRegressionData(void);
+	double regressionPredicsion(Matrix*, Regression*, int);				//Done - need testing
 	void createLeftSide(Matrix*, Regression*);
 	void createRightSide(Matrix*, Regression*);
 

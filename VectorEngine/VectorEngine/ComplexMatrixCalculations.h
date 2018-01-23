@@ -25,6 +25,7 @@ public:
 	Matrix* eigenvector(Matrix*);
 	double* eigenValues(Matrix*);	//Eller er matrix?
 
+	void sortData(void);
 
 private:
 

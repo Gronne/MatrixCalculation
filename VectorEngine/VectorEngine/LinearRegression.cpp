@@ -44,7 +44,7 @@ Regression * LinearRegression::findStandardRegression(Matrix *orginalDataSet, Re
 	calc.mergeMatrix(&resultMatrix, orginalDataSet);
 
 	//SortData
-	sortRegressionData();
+	//Linear regressions doesn't need to be sorted.
 	
 	//Find regression
 	findRegression(orginalRegression);
@@ -67,7 +67,73 @@ Regression * LinearRegression::findBestRegression(Matrix *orginalDataSet, int le
 }
 
 
-double LinearRegression::precision(Matrix *, Regression *)
+void LinearRegression::precision(Matrix *dataSet, Regression *orginalRegression)
+{
+	for (size_t i = 0; i < orginalRegression->variate; i++)
+	{
+		orginalRegression->precision[i] = regressionPredicsion(dataSet, orginalRegression, i);
+	}
+
+	
+}
+
+
+void LinearRegression::copyRegression(Regression *orginalRegession)
+{
+
+
+}
+
+
+void LinearRegression::printRegression(Regression *orginalRegression)
+{
+	//Print for each part of the regression
+	for (size_t i = 0; i < orginalRegression->variate; i++)
+	{
+		for (size_t j = 0; j < orginalRegression->regression.size(); j++)
+		{
+			switch (orginalRegression->regression[i].type)	//Defines if it will be a constant or beta value that will be printet first, for the given part
+			{
+			case 1:
+				cout << orginalRegression->answers[i][j];
+			case 2:
+				cout << orginalRegression->regression[i].constant <<"*e^(";
+			case 3:
+				cout << orginalRegression->regression[i].constant << "*sin(";
+			case 4:
+				cout << orginalRegression->regression[i].constant << "*log2(";
+			}
+
+			for (size_t m = 0; orginalRegression->regression[i].variables[m] != '\0'; m++)
+			{
+				if (orginalRegression->regression[i].variables[m] != '1')
+				{
+					cout << "*X" << m;								//Defines how many x's that need to be printet out in cascade after eah other	
+				}
+			}
+			switch (orginalRegression->regression[i].type)			//Defines the end of the part, to parantheses or other things
+			{
+			case 1:
+				cout << "^(" << orginalRegression->regression[i].constant << ")" << endl;
+			case 2:
+				cout << "*" << orginalRegression->answers[i][j] << ")" << endl;
+			case 3:
+				cout << "*" << orginalRegression->answers[i][j] << ")" << endl;
+			case 4:
+				cout << "*" << orginalRegression->answers[i][j] << ")" << endl;
+			}
+		}
+	}
+}
+
+
+void LinearRegression::addRegressionPart(Regression *orginalRegression, RegressionPart orginalPart)	//It's not a pointer because we don't want to point it.
+{
+	orginalRegression->regression.push_back(orginalPart);
+}
+
+
+double LinearRegression::valueAtCoordinate(Matrix *dataSet, Regression *orginalRegression, int time)
 {
 
 
@@ -75,21 +141,7 @@ double LinearRegression::precision(Matrix *, Regression *)
 }
 
 
-void LinearRegression::copyRegression(Regression *)
-{
-
-
-}
-
-
-void LinearRegression::printRegression(Regression *)
-{
-
-
-}
-
-
-void LinearRegression::findRegression(Regression *dataSet)
+void LinearRegression::findRegression(Regression *orginalRegression)
 {
 	//setup left and rightside matrices
 	Matrix leftSide;
@@ -100,8 +152,8 @@ void LinearRegression::findRegression(Regression *dataSet)
 	leftSide.rows = resultMatrix.columns;
 	rightSide.rows = leftSide.rows;
 
-	leftSide.columns = dataSet->regression.size();
-	rightSide.columns = dataSet->rightSide.size();
+	leftSide.columns = orginalRegression->regression.size();
+	rightSide.columns = orginalRegression->rightSide.size();
 
 	calc.constructMatrix(&leftSide);
 	calc.constructMatrix(&rightSide);
@@ -109,8 +161,8 @@ void LinearRegression::findRegression(Regression *dataSet)
 	calc.constructMatrix(&bufferMatrixTwo);
 
 	//Split it up
-	createLeftSide(&leftSide, dataSet);
-	createRightSide(&rightSide, dataSet);		//Do i need the result matrix after this point? - if 
+	createLeftSide(&leftSide, orginalRegression);
+	createRightSide(&rightSide, orginalRegression);		//Do i need the result matrix after this point? - if 
 
 	//-------calculate the linear regression-------
 	//Calculate the transposed leftside
@@ -131,9 +183,17 @@ void LinearRegression::findRegression(Regression *dataSet)
 	
 	//Calculate the beta values
 	calc.multiplication(&bufferMatrixTwo, &bufferMatrixOne);
+	calc.copyMatrix(&bufferMatrixOne);
 
 
-	//Put the values into the regression
+	//Put the values into the regression - How to handle the values, when it's a multi variable regression?
+	for (size_t i = 0; i < bufferMatrixOne.rows; i++)	//wrong, it's the number of 1's in the rightSide
+	{
+		for (size_t j = 0; j < bufferMatrixOne.columns; j++)
+		{
+			orginalRegression->answers[j][i] = bufferMatrixOne.matrix[j][i];	//If it doesn't work, it's the regression contructor that need to made different
+		}
+	}
 
 
 	//Deconstruct matrices
@@ -160,25 +220,51 @@ Regression * LinearRegression::getRegressionFromCoordinates(Matrix *, Regression
 }
 
 
-double LinearRegression::regressionPredicsion(Matrix *, Regression *)
+double LinearRegression::regressionPredicsion(Matrix *dataSet, Regression *orginalRegression, int variateColumn)		//For each variate
 {
+	//Create variables
+	double gatheredLength = 0;
+	double lengthPoint = 0;
+	double lengthGraph = 0;
+	int yRow = 0;
+
+	//Find y row
+	for (size_t i = 0; i<variateColumn+1;)
+	{
+		yRow++;
+		if (orginalRegression->rightSide[i] == 1)
+		{
+			i++;
+		}
+	}
+	yRow -= 1;
+
+	//Find length to each point
+	for (size_t i = 0; i < dataSet->columns; i++)
+	{
+		lengthPoint = dataSet->matrix[i][yRow];
+		lengthGraph = valueAtCoordinate(dataSet, orginalRegression, 1);	//Det kan jeg ikke gøre - der må bare ikke være for mange mellem regninger i funktionen
+
+		gatheredLength += (lengthPoint > lengthGraph) ? lengthPoint - lengthGraph : lengthGraph - lengthPoint;
+	}
 
 
-	return 0.0;
+	//Calculate avage and return the number
+	return gatheredLength/dataSet->columns;
 }
 
 
-void LinearRegression::sortRegressionData(void)
+void LinearRegression::createLeftSide(Matrix *leftSide, Regression *orginalRegression)		//Resultmatrix er datasættet
 {
 
 
 }
 
-void LinearRegression::createLeftSide(Matrix *, Regression *)
+
+void LinearRegression::createRightSide(Matrix *rightSide, Regression *)						//Behøves jeg to funktioner?
 {
+
+
 }
 
-void LinearRegression::createRightSide(Matrix *, Regression *)
-{
-}
 
