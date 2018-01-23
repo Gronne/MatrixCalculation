@@ -30,6 +30,9 @@
     <ClCompile Include="ComplexMatrixCalculations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LinearRegression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SimpleMatrixCalculations.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ComplexMatrixCalculations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearRegression.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

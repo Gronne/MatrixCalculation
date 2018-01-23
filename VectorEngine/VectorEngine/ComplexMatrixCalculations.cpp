@@ -20,8 +20,6 @@ ComplexMatrixCalculations::ComplexMatrixCalculations(bool intermediateCalculatio
 	results.size = 0;
 	calc.constructMatrixResult(&results);
 
-	//Init regression
-	calc.constructRegression(&_regression);
 }
 
 
@@ -30,51 +28,6 @@ ComplexMatrixCalculations::~ComplexMatrixCalculations()
 	//Deconstruc objects constructed in the constructor
 	calc.deconstructMatrix(&resultMatrix);
 	calc.deconstructMatrixResult(&results);
-	calc.deconstructRegression(&_regression);
-}
-
-
-Regression * ComplexMatrixCalculations::findStandardRegression(Matrix *orginalDataSet, Regression *OrginalRegression)
-{
-	//Copy dataSet
-	calc.deconstructMatrix(&resultMatrix);
-	resultMatrix.columns = orginalDataSet->columns;
-	resultMatrix.rows = orginalDataSet->rows;
-	calc.constructMatrix(&resultMatrix);
-	calc.mergeMatrix(&resultMatrix, orginalDataSet);
-
-	//SortData
-	sortRegressionData();
-
-	//Find regression
-	findRegression();
-
-	//Return result
-	return &_regression;
-}
-
-
-Regression * ComplexMatrixCalculations::findBestRegression(Matrix*)
-{
-
-
-	return nullptr;
-}
-
-
-double ComplexMatrixCalculations::precision(Matrix*, Regression *)
-{
-
-
-	return 0.0;
-}
-
-void ComplexMatrixCalculations::copyRegression(Regression *)
-{
-}
-
-void ComplexMatrixCalculations::printRegression(Regression *)
-{
 }
 
 
@@ -133,42 +86,3 @@ double * ComplexMatrixCalculations::eigenValues(Matrix *)
 	return nullptr;
 }
 
-
-void ComplexMatrixCalculations::findRegression(void)
-{
-
-
-	
-}
-
-
-Regression * ComplexMatrixCalculations::findDominantRegression(Matrix*, Regression *)
-{
-
-
-	return nullptr;
-}
-
-
-Regression * ComplexMatrixCalculations::getRegressionFromCoordinates(Matrix*, Regression *)
-{
-
-
-	return nullptr;
-}
-
-
-double ComplexMatrixCalculations::regressionPredicsion(Matrix*, Regression *)
-{
-
-
-	return 0.0;
-}
-
-
-void ComplexMatrixCalculations::sortRegressionData(void)
-{
-
-
-	
-}

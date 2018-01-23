@@ -51,8 +51,8 @@ void SimpleMatrixCalculations::constructSpace(Space *space)
 void SimpleMatrixCalculations::constructRegression(Regression *orginalRegression)
 {
 	RegressionPart part;
-	part.constant = 0;
-	part.POW = 0;
+	part.A = 0;
+	part.B = 0;
 	part.type = 0;
 	orginalRegression->regression.push_back(part);
 }

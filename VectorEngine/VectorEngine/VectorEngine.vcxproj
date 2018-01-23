@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ComplexMatrixCalculations.cpp" />
+    <ClCompile Include="LinearRegression.cpp" />
     <ClCompile Include="matrixReff.cpp" />
     <ClCompile Include="MatrixType.cpp" />
     <ClCompile Include="SimpleMatrixCalculations.cpp" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="ComplexMatrixCalculations.h" />
     <ClInclude Include="Information.h" />
+    <ClInclude Include="LinearRegression.h" />
     <ClInclude Include="matrixReff.h" />
     <ClInclude Include="MatrixType.h" />
     <ClInclude Include="SimpleMatrixCalculations.h" />
